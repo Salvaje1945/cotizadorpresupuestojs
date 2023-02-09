@@ -152,8 +152,7 @@ if (cuotas == true) {
     }
 }
 
-// console.log('Tipo de proyecto:');
-// console.log(proyectoTipo);
+
 
 document.write('<h2>Estos son los datos para elaborar su presupuesto. Corrobore que sean correctos.</h2>');
 
