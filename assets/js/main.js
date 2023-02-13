@@ -1,3 +1,45 @@
+const HORAS_TRABAJ_X_DIA = 6;
+
+const DIAS_TRABAJ_X_SEM = 5;
+
+const PRECIO_PLAZO_SEMANA = 750;
+
+const PRECIO_PLAZO_QUINCENA = 500;
+
+const PRECIO_PLAZO_MES = 350;
+
+const RECARGO_PRESENCIAL = 75;
+
+const EXTRA_WORDPRESS = 150;
+
+const MAXIMO_SECCIONES_INC = 4;
+
+const RECARGO_SECCIONES_PAG = 30;
+
+const EXTRA_LOGO = 75;
+
+const HOSTING_ANUAL = 36;
+
+const DOMINIO_ANUAL = 15;
+
+const MANTENIMIENTO_ANUAL = 150;
+
+const DESCUENTO_UN_PAGO = 5; 
+
+const RECARGO_DOS_CUOTAS = 50;
+
+const RECARGO_TRES_CUOTAS = 100;
+
+const RECARGO_SEIS_CUOTAS = 150;
+
+const RECARGO_DOCE_CUOTAS = 500;
+
+const PRECIO_HORA_EXTRA = 18;
+
+const PRECIO_DIA_EXTRA = PRECIO_HORA_EXTRA * HORAS_TRABAJ_X_DIA;
+
+const COTIZACION_DOLAR = 190;
+
 // Funciones
 
 function recolectarDatos(){
@@ -91,94 +133,94 @@ function calculoPresupuesto(){
     //CÁLCULO PRECIO POR PLAZO DE ENTREGA
     switch(tantosDias){
         case 5:
-            precioBase = precioXplazoSemana;
+            precioBase = PRECIO_PLAZO_SEMANA;
             break;
         case 10:
-            precioBase = precioXplazoQuincena;
+            precioBase = PRECIO_PLAZO_QUINCENA;
             break;
         case 20:
-            precioBase = precioXplazoMes;
+            precioBase = PRECIO_PLAZO_MES;
             break;
         default:
             if(tantosDias > 5 && tantosDias < 10) {
                 diasExtra = tantosDias - 5;
-                adicionalXdiasExtra = precioDiaExtra * diasExtra;
-                precioBase = precioXplazoSemana + adicionalXdiasExtra;
+                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra;
+                precioBase = PRECIO_PLAZO_SEMANA + adicionalXdiasExtra;
             }
             if(tantosDias > 10 && tantosDias < 20) {
                 diasExtra = tantosDias - 10;
-                adicionalXdiasExtra = precioDiaExtra * diasExtra;
-                precioBase = precioXplazoQuincena + adicionalXdiasExtra;
+                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra;
+                precioBase = PRECIO_PLAZO_QUINCENA + adicionalXdiasExtra;
             }
             if(tantosDias > 20 && tantosDias < 41) {
                 diasExtra = tantosDias - 20;
-                adicionalXdiasExtra = precioDiaExtra * diasExtra;
-                precioBase = precioXplazoMes + adicionalXdiasExtra;
+                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra;
+                precioBase = PRECIO_PLAZO_MES + adicionalXdiasExtra;
             }
     }
     // CÁLCULO PRECIO POR TIPO DE PROYECTO
     if(proyectoTipo === 'wordpress'){
-        precioXplazoYtipo = precioBase + extraXwpress;
+        precioXplazoYtipo = precioBase + EXTRA_WORDPRESS;
     } else {
         precioXplazoYtipo = precioBase;
     }
     // CÁLCULO PRECIO POR SERVICIOS ADICIONALES
     if(hosting === true){
-        addHosting = hostingAnual;
+        addHosting = HOSTING_ANUAL;
     } else {
         addHosting = 0;
     }
     if(dominio === true) {
-        addDominio = dominioAnual;
+        addDominio = DOMINIO_ANUAL;
     } else {
         addDominio = 0;
     }
     if(logo === true) {
-        addLogo = extraXlogo;
+        addLogo = EXTRA_LOGO;
     } else {
         addLogo = 0;
     }
     if(mantenimiento === true) {
-        addMante = mantenimientoAnual;
+        addMante = MANTENIMIENTO_ANUAL;
     } else {
         addMante = 0;
     }
     adicionales = addHosting + addDominio + addLogo + addMante;
     // CÁLCULO PRECIO POR SECCIONES
-    if(tantasSecciones <= maximoSeccionesIncluidas){
+    if(tantasSecciones <= MAXIMO_SECCIONES_INC){
         adicionalXsecciones = 0;
     } else {
-        seccionesExtra = tantasSecciones - maximoSeccionesIncluidas;
-        adicionalXsecciones = seccionesExtra * recargoXseccionPagina;
+        seccionesExtra = tantasSecciones - MAXIMO_SECCIONES_INC;
+        adicionalXsecciones = seccionesExtra * RECARGO_SECCIONES_PAG;
     }
     // CÁLCULO PRECIO POR REUNIONES PRESENCIALES
     if(visitas === false){
         precioXvisitas = 0;
     } else {
-        precioXvisitas = tantasVisitas * recargoXpresencial;
+        precioXvisitas = tantasVisitas * RECARGO_PRESENCIAL;
     }
     // CÁLCULO DEL PRECIO FINAL
     precioProvisorio = precioXplazoYtipo + adicionales + adicionalXsecciones + precioXvisitas;
     if(cuotas === false){
-        descuento = (precioProvisorio * descXunPago) / 100;
+        descuento = (precioProvisorio * DESCUENTO_UN_PAGO) / 100;
         precioFinal = precioProvisorio - descuento;
     } else {
         switch(tantasCuotas){
             case 2:
-                precioFinal = precioProvisorio + recargoXdosCuotas;
+                precioFinal = precioProvisorio + RECARGO_DOS_CUOTAS;
                 break;
             case 3:
-                precioFinal = precioProvisorio + recargoXtresCuotas;
+                precioFinal = precioProvisorio + RECARGO_TRES_CUOTAS;
                 break;
             case 6:
-                precioFinal = precioProvisorio + recargoXseisCuotas;
+                precioFinal = precioProvisorio + RECARGO_SEIS_CUOTAS;
                 break;
             case 12:
-                precioFinal = precioProvisorio + recargoXdoceCuotas;
+                precioFinal = precioProvisorio + RECARGO_DOCE_CUOTAS;
                 break;
         }
     }
-    precioEnPesos = precioFinal * cotizDolar;
+    precioEnPesos = precioFinal * COTIZACION_DOLAR;
 }
 
 function mostrarPresupuesto(){
@@ -223,24 +265,24 @@ function mostrarPresupuesto(){
     if(proyectoTipo === 'wordpress'){
         document.write('Plantilla de Wordpress personalizada</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr>');
         document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Adicional por instalación y gestión de plantilla en WP</td><td class="tabla__detalle--vals">');
-        document.write(extraXwpress);
+        document.write(EXTRA_WORDPRESS);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(extraXwpress);
+        document.write(EXTRA_WORDPRESS);
         document.write('</td></tr>');
     }
     // FILA PLAZO
     document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Precio base según plazo: ');
     if(tantosDias >= 5 && tantosDias < 10) {
         document.write('1 semana (5 días hábiles)</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoSemana);
+        document.write(PRECIO_PLAZO_SEMANA);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoSemana);
+        document.write(PRECIO_PLAZO_SEMANA);
         document.write('</td></tr>');
         if(tantosDias != 5){
             document.write('<tr><td class="tabla__detalle--cant">');
             document.write(diasExtra);
             document.write('</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">');
-            document.write(precioDiaExtra);
+            document.write(PRECIO_DIA_EXTRA);
             document.write('</td><td class="tabla__detalle--vals">');
             document.write(adicionalXdiasExtra);
             document.write('</td></tr>');
@@ -248,15 +290,15 @@ function mostrarPresupuesto(){
     }
     if(tantosDias >= 10 && tantosDias < 20) {
         document.write('1 quincena (10 días hábiles)</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoQuincena);
+        document.write(PRECIO_PLAZO_QUINCENA);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoQuincena);
+        document.write(PRECIO_PLAZO_QUINCENA);
         document.write('</td></tr>');
         if(tantosDias != 10){
             document.write('<tr><td class="tabla__detalle--cant">');
             document.write(diasExtra);
             document.write('</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">');
-            document.write(precioDiaExtra);
+            document.write(PRECIO_DIA_EXTRA);
             document.write('</td><td class="tabla__detalle--vals">');
             document.write(adicionalXdiasExtra);
             document.write('</td></tr>');
@@ -264,26 +306,26 @@ function mostrarPresupuesto(){
     }
     if(tantosDias >= 20 && tantosDias < 41) {
         document.write('1 mes (20 días hábiles)</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoMes);
+        document.write(PRECIO_PLAZO_MES);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(precioXplazoMes);
+        document.write(PRECIO_PLAZO_MES);
         document.write('</td></tr>');
         if(tantosDias != 20){
             document.write('<tr><td class="tabla__detalle--cant">');
             document.write(diasExtra);
             document.write('</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">');
-            document.write(precioDiaExtra);
+            document.write(PRECIO_DIA_EXTRA);
             document.write('</td><td class="tabla__detalle--vals">');
             document.write(adicionalXdiasExtra);
             document.write('</td></tr>');
         }
     }
     // FILA SECCIONES
-    if(tantasSecciones > maximoSeccionesIncluidas){
+    if(tantasSecciones > MAXIMO_SECCIONES_INC){
         document.write('<tr><td class="tabla__detalle--cant">4</td><td class="tabla__detalle--desc">Secciones incluidas en el sitio (hasta 4 sin costo extra)</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr><tr><td class="tabla__detalle--cant">');
         document.write(seccionesExtra);
         document.write('</td><td class="tabla__detalle--desc">Adicional por secciones extra</td><td class="tabla__detalle--vals">');
-        document.write(recargoXseccionPagina);
+        document.write(RECARGO_SECCIONES_PAG);
         document.write('</td><td class="tabla__detalle--vals">');
         document.write(adicionalXsecciones);
         document.write('</td></tr>');
@@ -291,30 +333,30 @@ function mostrarPresupuesto(){
     // FILAS SERVICIOS ADICIONALES
     if(hosting === true){
         document.write('<tr><td class="tabla__detalle--cant">12</td><td class="tabla__detalle--desc">Servicio de Web Hosting*</td><td class="tabla__detalle--vals">');
-        document.write(hostingAnual / 12);
+        document.write(HOSTING_ANUAL / 12);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(hostingAnual);
+        document.write(HOSTING_ANUAL);
         document.write('</td></tr>');
     }
     if(dominio === true) {
         document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Servicio registro de dominio*</td><td class="tabla__detalle--vals">');
-        document.write(dominioAnual);
+        document.write(DOMINIO_ANUAL);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(dominioAnual);
+        document.write(DOMINIO_ANUAL);
         document.write('</td></tr>');
     }
     if(logo === true) {
         document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Diseño de logo</td><td class="tabla__detalle--vals">');
-        document.write(extraXlogo);
+        document.write(EXTRA_LOGO);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(extraXlogo);
+        document.write(EXTRA_LOGO);
         document.write('</td></tr>');
     }
     if(mantenimiento === true) {
         document.write('<tr><td class="tabla__detalle--cant">12</td><td class="tabla__detalle--desc">Servicio de Mantenimiento Web*</td><td class="tabla__detalle--vals">');
-        document.write(mantenimientoAnual / 12);
+        document.write(MANTENIMIENTO_ANUAL / 12);
         document.write('</td><td class="tabla__detalle--vals">');
-        document.write(mantenimientoAnual);
+        document.write(MANTENIMIENTO_ANUAL);
         document.write('</td></tr>');
     }
     // FILA REUNIONES PRESENCIALES
@@ -322,7 +364,7 @@ function mostrarPresupuesto(){
         document.write('<tr><td class="tabla__detalle--cant">');
         document.write(tantasVisitas);
         document.write('</td><td class="tabla__detalle--desc">Recargo por reuniones presenciales</td><td class="tabla__detalle--vals">');
-        document.write(recargoXpresencial);
+        document.write(RECARGO_PRESENCIAL);
         document.write('</td><td class="tabla__detalle--vals">');
         document.write(precioXvisitas);
         document.write('</td></tr>');
@@ -342,22 +384,22 @@ function mostrarPresupuesto(){
             case 2:
                 document.write(tantasCuotas);
                 document.write(' cuotas</td><td class="tabla__detalle--vals">');
-                document.write(recargoXdosCuotas);
+                document.write(RECARGO_DOS_CUOTAS);
                 break;
             case 3:
                 document.write(tantasCuotas);
                 document.write(' cuotas</td><td class="tabla__detalle--vals">');
-                document.write(recargoXtresCuotas);
+                document.write(RECARGO_TRES_CUOTAS);
                 break;
             case 6:
                 document.write(tantasCuotas);
                 document.write(' cuotas</td><td class="tabla__detalle--vals">');
-                document.write(recargoXseisCuotas);
+                document.write(RECARGO_SEIS_CUOTAS);
                 break;
             case 12:
                 document.write(tantasCuotas);
                 document.write(' cuotas</td><td class="tabla__detalle--vals">');
-                document.write(recargoXdoceCuotas);
+                document.write(RECARGO_DOCE_CUOTAS);
                 break;
         }
     }
@@ -372,57 +414,7 @@ function mostrarPresupuesto(){
 
 // Constantes
 
-const esImponsible = 'No podemos presupuestar su proyecto debido a que: ';
 
-const pagWeb = 'web';
-
-const wPress = 'wordpress';
-
-const horasTrabajoXdia = 6;
-
-const diasTrabajoXsemana = 5;
-
-const diasTrabajoXquincena = 10;
-
-const diasTrabajoXmes = 20;
-
-const precioXplazoSemana = 750;
-
-const precioXplazoQuincena = 500;
-
-const precioXplazoMes = 350;
-
-const recargoXpresencial = 75;
-
-const extraXwpress = 150;
-
-const maximoSeccionesIncluidas = 4;
-
-const recargoXseccionPagina = 30;
-
-const extraXlogo = 75;
-
-const hostingAnual = 36;
-
-const dominioAnual = 15;
-
-const mantenimientoAnual = 150;
-
-const descXunPago = 5; 
-
-const recargoXdosCuotas = 50;
-
-const recargoXtresCuotas = 100;
-
-const recargoXseisCuotas = 150;
-
-const recargoXdoceCuotas = 500;
-
-const precioXhoraExtra = 18;
-
-const precioDiaExtra = precioXhoraExtra * horasTrabajoXdia;
-
-const cotizDolar = 190;
 
 recolectarDatos()
 
