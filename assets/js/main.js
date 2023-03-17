@@ -1,36 +1,11 @@
-// CONSTANTES
-
-const HORAS_TRABAJ_X_DIA = 6
-const DIAS_TRABAJ_X_SEM = 5
-const PRECIO_PLAZO_SEMANA = 750
-const PRECIO_PLAZO_QUINCENA = 500
-const PRECIO_PLAZO_MES = 350
-const RECARGO_PRESENCIAL = 75
-const EXTRA_WORDPRESS = 150
-const EXTRA_PLANTILLA_PROF = 50
-const DESC_FRAMEWORK = 50
-const MAXIMO_SECCIONES_INC = 5
-const RECARGO_SECCIONES_PAG = 30
-const EXTRA_LOGO = 75
-const HOSTING_ANUAL = 36
-const DOMINIO_ANUAL = 15
-const MANTENIMIENTO_ANUAL = 150
-const DESCUENTO_UN_PAGO = 5
-const RECARGO_DOS_CUOTAS = 50
-const RECARGO_TRES_CUOTAS = 100
-const RECARGO_SEIS_CUOTAS = 150
-const RECARGO_DOCE_CUOTAS = 500
-const PRECIO_HORA_EXTRA = 18
-const PRECIO_DIA_EXTRA = PRECIO_HORA_EXTRA * HORAS_TRABAJ_X_DIA
-const COTIZACION_DOLAR = 190
-
 // CLASES
 
 class Cliente {
-    constructor(nom, ps, empr, corr, cel) {
+    constructor(id, nom, empr, ps, corr, cel) {
+        this.id = id
         this.nombre = nom
-        this.pais = ps
         this.empresa = empr
+        this.pais = ps
         this.mail = corr
         this.celular = cel
     }
@@ -55,528 +30,972 @@ class Adicionales {
     }
 }
 
-class PautasTrabajo {
-    constructor(plz, pres, numvis, forpag, cuots) {
-        this.plazoEntrega = plz
-        this.presenciales = pres
-        this.cantidadPresenciales = numvis
-        this.formaPago = forpag
-        this.cuotas = cuots
-    }
-}
+// CONSTANTES
+
+const formularioDatos = document.querySelector('#form__presup--paso1')
+
+const formularioProyecto = document.querySelector('#form__presup--paso2')
+
+const formularioAdicionales = document.querySelector('#form__presup--paso3')
+
+const datosClienteExistente = document.querySelector('#cliente__datos--yaexiste')
+
+const datosClienteNuevo = document.querySelector('#cliente__datos--nuevo')
+
+const datosClienteExistLista = document.querySelector('#cliente__exist--datos_lista')
+
+const datosClienteNuevoLista = document.querySelector('#cliente__nuevo--datos_lista')
+
+const clienteExistDatosConfirm = document.querySelector('#cliente__existente--datos_confirm')
+
+const clienteExistDatosModif = document.querySelector('#cliente__existente--datos_modif')
+
+const clienteNuevoDatosConfirm = document.querySelector('#cliente__nuevo--datos_confirm')
+
+const clienteNuevoDatosModif = document.querySelector('#cliente__nuevo--datos_modif')
+
+const $elNombre = document.querySelector('#nombre')
+
+const $laEmpresa = document.querySelector('#empresa')
+
+const $paisOtro = document.querySelector('#pais')
+
+const $elPaisOtro = document.querySelector('#pais-otro')
+
+const $elCorreo = document.querySelector('#correo')
+
+const $elTelefono = document.querySelector('#telefono')
+
+const $tipoDeProyecto = document.querySelector('#protip')
+
+const $tipoDisenio = document.querySelector('#dise')
+
+const $disenioDistri = document.querySelector('#distri')
+
+const $seccionesWeb = document.querySelector('#websecc')
+
+const $tipoPlantilla = document.querySelector('#planti')
+
+const $seccionesWp = document.querySelector('#wpsecc')
+
+const $host = document.querySelector('#hosting')
+
+const $domi = document.querySelector('#dominio')
+
+const $mante = document.querySelector('#mantenimiento')
+
+const $lgo = document.querySelector('#logo')
+
+// ARRAYS
+
+let datosCliente = []
+
+let datosProyecto = []
+
+let datosAdicionales = []
+
+// VARIABLES
+
+let clienteExistente = false
 
 // FUNCIONES
 
-function datosSolicitante() {
-    introduccionCliente = alert('Antes de comenzar, le pedimos por favor que introduzca sus datos.')
-    inicioRecoleccionDatos = true
-    aprobarDatos = false
-    while (inicioRecoleccionDatos === true || confirmarDatos === aprobarDatos) {
-        datosProvisoriosCliente = []
-        nombre = prompt('Por favor, escriba su nombre completo.')
-        while (nombre === null || nombre === '') {
-            error = alert('Es necesario que escriba su nombre completo.')
-            nombre = prompt('Por favor, escriba su nombre completo.')
-        }
-        datosProvisoriosCliente.push(nombre)
-        pais = prompt('Por favor, indique su país de residencia.')
-        while (pais === null || pais === '') {
-            error = alert('Es necesario que indique su país de residencia.')
-            pais = prompt('Por favor, indique su país de residencia.')
-        }
-        datosProvisoriosCliente.push(pais)
-        empresa = prompt('Por favor, escriba el nombre de su empresa o negocio.')
-        while (empresa === null || empresa === '') {
-            error = alert('Es necesario que escriba el nombre de su empresa o negocio.')
-            empresa = prompt('Por favor, escriba el nombre de su empresa o negocio.')
-        }
-        datosProvisoriosCliente.push(empresa)
-        mail = prompt('Por favor, escriba su correo electrónico.')
-        while (mail === null || mail === '') {
-            error = alert('Es necesario que escriba su correo electrónico.')
-            mail = prompt('Por favor, escriba su correo electrónico.')
-        }
-        datosProvisoriosCliente.push(mail)
-        celular = Number(prompt('Por favor, escriba su número de celular sin utilizar espacios ni caracteres (ej: +, -, .), incluyendo la característica de su país y su ciudad. Ej: 5491145555555'))
-        while (isNaN(celular) || celular === null || celular === '' || celular === 0) {
-            error = alert('Por favor, escriba un número de teléfono celular/móvil válido.')
-            celular = Number(prompt('Por favor, escriba su número de celular sin utilizar espacios ni caracteres (ej: +, -, .), incluyendo la característica de su país y su ciudad. Ej: 5491145555555'))
-        }
-        datosProvisoriosCliente.push(celular)
-        // CONFIRMAR DATOS
-        confirmarDatos = confirm('Por favor confirme que sus datos sean correctos. ' + 'Nombre: ' + datosProvisoriosCliente[0] + ' / País: ' + datosProvisoriosCliente[1] + ' / Empresa: ' + datosProvisoriosCliente[2] + ' / Mail: ' + datosProvisoriosCliente[3] + ' / Celular: ' + datosProvisoriosCliente[4] + ' // SI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".')
-        if (confirmarDatos === true) {
-            nuevoCliente = new Cliente(datosProvisoriosCliente[0], datosProvisoriosCliente[1], datosProvisoriosCliente[2], datosProvisoriosCliente[3], datosProvisoriosCliente[4])
-            break
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    if(JSON.parse(sessionStorage.getItem('Cliente')) != null){
+        //datosCliente = JSON.parse(sessionStorage.getItem('Cliente'))
+        clienteExistente = true
+        //crearCliente()
+        yaExisteCliente()
+    } else {
+        vengaElPasoUno()
+    }
+    
+/*
+
+    if(JSON.parse(sessionStorage.getItem('Proyecto')) != null){
+        datosProyecto = JSON.parse(sessionStorage.getItem('Proyecto'))
+    }
+    crearProyecto()
+    if(JSON.parse(sessionStorage.getItem('Adicionales')) != null){
+        datosAdicionales = JSON.parse(sessionStorage.getItem('Adicionales'))
+    }
+    crearAdicionales()
+    //console.log(datosCliente)
+
+*/
+
+})
+
+const yaExisteCliente = () => {
+    if(clienteExistente === true){
+        datosCliente = JSON.parse(sessionStorage.getItem('Cliente'))
+        //crearCliente()
+        datosClienteExistente.style.display='block'
+        muestraLosDatos()
+        confirmarDatosExist()
+    } else {
+        vengaElPasoUno()
     }
 }
 
-function datosSitio() {
-    introduccionProyecto = alert('A continuación le haremos algunas preguntas técnicas sobre las necesidades de su proyecto.')
-    proyectoTipo = prompt('¿Qué clase de sitio web necesita para su proyecto? Si necesita un sitio web original escriba "web", si necesita una plantilla de Wordpress personalizada escriba "wordpress".')
-    while (proyectoTipo === null || proyectoTipo === '' || proyectoTipo != 'web' || proyectoTipo != 'wordpress') {
-        if (proyectoTipo === 'web' || proyectoTipo === 'wordpress') {
-            break
+const muestraLosDatos = () => {
+
+    if (clienteExistente === true) {
+        console.log(datosCliente + 'sesión previa')
+        for (const elDatoTemp of datosCliente) {
+            listaDatos = document.createElement('ul')
+            listaDatos.innerHTML = `<li><b>Nombre:</b> ${elDatoTemp.nombre}</li>
+                                    <li><b>Empresa:</b> ${elDatoTemp.empresa}</li>
+                                    <li><b>Pais:</b> ${elDatoTemp.pais}</li>
+                                    <li><b>Correo:</b> ${elDatoTemp.correo}</li>
+                                    <li><b>Telefono:</b> ${elDatoTemp.telefono}</li>`
+            datosClienteExistLista.appendChild(listaDatos)
+        }
+        /*
+        listaDatos = document.createElement('ul')
+        listaDatos.innerHTML = `<li><b>Nombre:</b> ${clienteNuevo.nombre}</li>
+                                <li><b>Empresa:</b> ${clienteNuevo.empresa}</li>
+                                <li><b>Pais:</b> ${clienteNuevo.pais}</li>
+                                <li><b>Correo:</b> ${clienteNuevo.mail}</li>
+                                <li><b>Telefono:</b> ${clienteNuevo.celular}</li>`
+        datosClienteExistLista.appendChild(listaDatos)
+        */
+
+    } else {
+        /*datosCliente = JSON.parse(sessionStorage.getItem('Cliente')) 
+        if (datosCliente.length > 0) {
+            for (const elDatoTemp of datosCliente) {
+                listaDatos = document.createElement('ul')
+                listaDatos.innerHTML = `<li>Nombre: ${elDatoTemp.nombre}</li>
+                                <li>Empresa: ${elDatoTemp.empresa}</li>
+                                <li>Pais: ${elDatoTemp.pais}</li>
+                                <li>Correo: ${elDatoTemp.correo}</li>
+                                <li>Telefono: ${elDatoTemp.telefono}</li>`
+                datosClienteLista.appendChild(listaDatos)
+            }
         } else {
-            error = alert('Es necesario que indique el tipo de proyecto para continuar con la cotización del presupuesto. Recuerde que debe elegir entre la opción "web" o "wordpress" según sus necesidades y debe escribir la palabra sin mayúsculas ni espacios.')
-            proyectoTipo = prompt('¿Qué clase de sitio web necesita para su proyecto? Si necesita un sitio web original escriba "web", si necesita una plantilla de Wordpress personalizada escriba "wordpress".')
+            console.log('no llega datoscliente')
+        }*/
+        while(datosClienteNuevoLista.firstChild){
+            datosClienteNuevoLista.removeChild(datosClienteNuevoLista.firstChild)
+        }
+        console.log(datosCliente + 'sesión nueva')
+        for (const elDatoTemp of datosCliente) {
+            listaDatos = document.createElement('ul')
+            listaDatos.innerHTML = `<li><b>Nombre:</b> ${elDatoTemp.nombre}</li>
+                                    <li><b>Empresa:</b> ${elDatoTemp.empresa}</li>
+                                    <li><b>Pais:</b> ${elDatoTemp.pais}</li>
+                                    <li><b>Correo:</b> ${elDatoTemp.correo}</li>
+                                    <li><b>Telefono:</b> ${elDatoTemp.telefono}</li>`
+            datosClienteNuevoLista.appendChild(listaDatos)
+        }
+        //console.log(datosCliente)
+    }
+}
+
+const confirmarDatosExist = () => {
+    clienteExistDatosConfirm.addEventListener('click', () => {
+        datosClienteExistente.style.display='none'
+        crearCliente()
+    })
+    clienteExistDatosModif.addEventListener('click', () => {
+        datosClienteExistente.style.display='none'
+        datosCliente = []
+        sessionStorage.removeItem('Cliente')
+        clienteExistente = false
+        formularioDatos.reset()
+        vengaElPasoUno()
+    })
+}
+
+const confirmarDatos = () => {
+    formularioDatos.style.display='none'
+    datosClienteNuevo.style.display='block'
+    clienteExistente = false
+    //console.log(clienteNuevo)
+    console.log(datosCliente)
+    muestraLosDatos()
+    
+    clienteNuevoDatosConfirm.addEventListener('click', () => {
+        datosClienteNuevo.style.display='none'
+        crearCliente()
+    })
+    clienteNuevoDatosModif.addEventListener('click', () => {
+        datosClienteNuevo.style.display='none'
+        datosCliente = []
+        sessionStorage.removeItem('Cliente')
+        clienteExistente = false
+        //formularioDatos.reset()
+        vengaElPasoUno()
+    })
+}
+
+const crearCliente = () => {
+    if(datosCliente.length > 0){
+        for (const elDato of datosCliente){
+            clienteNuevo = new Cliente(elDato.id, elDato.nombre, elDato.empresa, elDato.pais, elDato.correo, elDato.telefono)
+        }
+        vengaElPasoDos()
+        //console.log(clienteNuevo)
+
+        /*clienteNuevo = new Cliente(datosCliente.id, datosCliente.nombre, datosCliente.empresa, datosCliente.pais, datosCliente.correo, datosCliente.telefono)
+        sessionStorage.removeItem('Cliente')*/
+    } else {
+        console.log('algo está fallando')
+    }
+}
+
+const crearProyecto = () => {
+    if(datosProyecto.length > 0){
+        for (const elDatoP of datosProyecto){
+            proyectoNuevo = new Proyecto(elDatoP.proyectoT, elDatoP.disenio, elDatoP.plantilla, elDatoP.distribucion, elDatoP.secciones)
+        }
+
+        /*clienteNuevo = new Cliente(datosCliente.id, datosCliente.nombre, datosCliente.empresa, datosCliente.pais, datosCliente.correo, datosCliente.telefono)
+        sessionStorage.removeItem('Cliente')*/
+    } else {
+        console.log('algo está fallando 2')
+    }
+}
+
+const crearAdicionales = () => {
+    if(datosAdicionales.length > 0){
+        for (const elDatoA of datosAdicionales){
+            adicionalesNuevo = new Adicionales(elDatoA.hosting, elDatoA.dominio, elDatoA.mantenimiento, elDatoA.logo)
+        }
+
+        /*clienteNuevo = new Cliente(datosCliente.id, datosCliente.nombre, datosCliente.empresa, datosCliente.pais, datosCliente.correo, datosCliente.telefono)
+        sessionStorage.removeItem('Cliente')*/
+    } else {
+        console.log('algo está fallando 3')
+    }
+}
+
+const vengaElPasoUno = () => {
+    formularioDatos.style.display='block'
+    formularioDatos.reset()
+    const paisNoEsta = () => {
+        const elPaisNoEsta = $paisOtro.selectedIndex
+        const escribaOtroPais = $paisOtro.options[elPaisNoEsta]
+        if (escribaOtroPais.value != 'orto') {
+            document.getElementById('pa2').style.height='0px'
+            document.getElementById('pa2').style.margin='0'
+            if(escribaOtroPais.value === 'vacio' || escribaOtroPais.value === '' || escribaOtroPais.value === null ) {
+                document.getElementById('pais').style.border='3px solid red'
+                $paisOtro.onblur = function() {
+                    document.getElementById('pais').style.border='3px solid rgb(72, 33, 247)'
+                }
+                $paisOtro.onfocus = function(){
+                    document.getElementById('pais').style.border='3px solid rgb(72, 33, 247)'
+                }
+            } else {
+                document.getElementById('pais').style.border='3px solid green'
+            }
+        } else {
+            document.getElementById('pa2').style.height='67px' 
+            document.getElementById('pa2').style.margin='0 0 15px' 
+            elOtroPais()
         }
     }
-    // TIPO DE PROYECTO: WEB TRADICIONAL
-    if (proyectoTipo === 'web') {
-        inicioRecoleccionDatos = true
-        aprobarDatos = false
-        while (inicioRecoleccionDatos === true || confirmarDatos === aprobarDatos) {
-            datosProvisoriosSitio = []
-            datosProvisoriosSitio.push(proyectoTipo)
-            // TIPO DE DISEÑO
-            disenioTipo = confirm('A la hora de elegir el tipo de diseño para su sitio web tenemos dos opciones para ofrecerle. Puede optar por un diseño totalmente original y desarrollado a la medida de sus necesidades comunicacionales (recomendado) o por un sitio desarrollado en base a un framework que será más económico pero al que Usted deberá ajustarse. Si desea un sitio web hecho a su medida oprima "ACEPTAR", si desea un sitio web basado en un framework oprima "CANCELAR".')
-            if (disenioTipo === true) {
-                tipoDisenio = 'a medida'
-            } else {
-                tipoDisenio = 'framework'
+    
+    const elOtroPais = () => {
+        $elPaisOtro.addEventListener('click', () => {
+            $elPaisOtro.onblur = function(){
+                if($elPaisOtro.value === null || $elPaisOtro.value === ''){
+                    document.getElementById('pa2').style.height='102px'
+                    document.getElementById('error-pais-otro').style.height='35px'
+                    document.getElementById('pais-otro').style.border='3px solid red'
+                } else {
+                    document.getElementById('pais-otro').style.border='3px solid green'
+                    document.getElementById('pais').style.border='3px solid green'
+                }
             }
-            datosProvisoriosSitio.push(tipoDisenio)
-            // TIPO DE PLANTILLA (FALSE, PORQUE ES UNA OPCIÓN ÚNICAMENTE PARA TIPO DE PROYECTO = WORDPRESS)
-            plantillaTipo = false
-            datosProvisoriosSitio.push(plantillaTipo)
-            // DIVISIÓN DEL CONTENIDO-SECCIONES
-            tipoDivision = confirm('Puede dividir el contenido de su sitio web en páginas independientes para cada sección (recomendado si el contendio de las secciones será extenso) o puede integrar todas las secciones en una sola página (Recomendado si el contenido de las secciones será breve). ¿Cómo desea hacerlo? Para dividir el contenido en páginas independientes para cada sección oprima "ACEPTAR", si desea integrar todas las secciones en una sola página oprima "CANCELAR".')
-            if (tipoDivision === true) {
-                division = 'secciones'
-                datosProvisoriosSitio.push(division)
-                secciones = Number(prompt('Indique el número de secciones que deberá tener su sitio web'))
-                while (isNaN(secciones) || secciones === 0 || secciones === 1) {
-                    if (secciones > 1) {
-                        break
-                    } else {
-                        if (secciones === 0 || secciones === 1) {
-                            error = alert('La página, dividida en páginas independientes para cada sección, no puede tener menos de 2 secciones.')
+            $elPaisOtro.onfocus = function(){
+                document.getElementById('pais-otro').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-pais-otro').style.height='0px'
+                document.getElementById('pa2').style.height='67px' 
+            }
+        })
+    }
+    
+    const nombreMal = () => {
+        $elNombre.onblur = function(){
+            if ($elNombre.value === null || $elNombre.value === ''){
+                document.getElementById('nom').style.height='102px'
+                document.getElementById('error-nombre').style.height='35px'
+                document.getElementById('nombre').style.border='3px solid red'
+            } else {
+                document.getElementById('nombre').style.border='3px solid green'
+            }
+        }
+    
+        $elNombre.onfocus = function(){
+            document.getElementById('nombre').style.border='3px solid rgb(72, 33, 247)'
+            document.getElementById('error-nombre').style.height='0px'
+            document.getElementById('nom').style.height='67px'
+        }
+    }
+    
+    const empresaMal = () => {
+        if ($elNombre.value === null || $elNombre.value === ''){
+            document.getElementById('nom').style.height='102px'
+            document.getElementById('error-nombre').style.height='35px'
+            document.getElementById('nombre').style.border='3px solid red'
+            $elNombre.onfocus = function(){
+                document.getElementById('nombre').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-nombre').style.height='0px'
+                document.getElementById('nom').style.height='67px'
+            }
+        }
+        $laEmpresa.onblur = function(){
+            if ($laEmpresa.value === null || $laEmpresa.value === ''){
+                document.getElementById('emp').style.height='102px'
+                document.getElementById('error-empresa').style.height='35px'
+                document.getElementById('empresa').style.border='3px solid red'
+            } else {
+                document.getElementById('empresa').style.border='3px solid green'
+            }
+        }
+    
+        $laEmpresa.onfocus = function(){
+            document.getElementById('empresa').style.border='3px solid rgb(72, 33, 247)'
+            document.getElementById('error-empresa').style.height='0px'
+            document.getElementById('emp').style.height='67px'
+        }
+    }
+    
+    const completeEmpresa = () => {
+        $paisOtro.onblur = function(){
+            if ($paisOtro.value === 'vacio'){
+                document.getElementById('pa').style.height='102px'
+                document.getElementById('error-pais').style.height='35px'
+                document.getElementById('pais').style.border='3px solid red'
+                $paisOtro.onfocus = function(){
+                    document.getElementById('pais').style.border='3px solid rgb(72, 33, 247)'
+                    document.getElementById('error-pais').style.height='0px'
+                    document.getElementById('pa').style.height='67px' 
+                }
+            }
+        }
+        if ($laEmpresa.value === null || $laEmpresa.value === ''){
+            document.getElementById('emp').style.height='102px'
+            document.getElementById('error-empresa').style.height='35px'
+            document.getElementById('empresa').style.border='3px solid red'
+            $laEmpresa.onfocus = function(){
+                document.getElementById('empresa').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-empresa').style.height='0px'
+                document.getElementById('emp').style.height='67px'
+            }
+        }
+    }
+    
+    const correoMal = () => {
+        if($paisOtro.value === 'orto'){
+            if($elPaisOtro.value === null || $elPaisOtro.value === ''){
+                document.getElementById('pa2').style.height='102px'
+                document.getElementById('error-pais-otro').style.height='35px'
+                document.getElementById('pais-otro').style.border='3px solid red'
+                $elPaisOtro.onfocus = function(){
+                    document.getElementById('pais-otro').style.border='3px solid rgb(72, 33, 247)'
+                    document.getElementById('error-pais-otro').style.height='0px'
+                    document.getElementById('pa2').style.height='67px' 
+                }
+            }
+        }
+        if ($paisOtro.value === 'vacio'){
+            document.getElementById('pa').style.height='102px'
+            document.getElementById('error-pais').style.height='35px'
+            document.getElementById('pais').style.border='3px solid red'
+            $paisOtro.onfocus = function(){
+                document.getElementById('pais').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-pais').style.height='0px'
+                document.getElementById('pa').style.height='67px' 
+            }
+        }
+        $elCorreo.onblur = function(){
+            if ($elCorreo.value === null || $elCorreo.value === ''){
+                document.getElementById('mail').style.height='102px'
+                document.getElementById('error-correo').style.height='35px'
+                document.getElementById('correo').style.border='3px solid red'
+            } else {
+                document.getElementById('correo').style.border='3px solid green'
+            }
+        }
+    
+        $elCorreo.onfocus = function(){
+            document.getElementById('correo').style.border='3px solid rgb(72, 33, 247)'
+            document.getElementById('error-correo').style.height='0px'
+            document.getElementById('mail').style.height='67px'
+        }
+    }
+    
+    const telefonoMal = () => {
+        if ($elCorreo.value === null || $elCorreo.value === ''){
+            document.getElementById('mail').style.height='102px'
+            document.getElementById('error-correo').style.height='35px'
+            document.getElementById('correo').style.border='3px solid red'
+            $elCorreo.onfocus = function(){
+                document.getElementById('correo').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-correo').style.height='0px'
+                document.getElementById('mail').style.height='67px'
+            }
+        }
+    
+        $elTelefono.onblur = function(){
+            let valorTelefono = Number($elTelefono.value)
+            if (valorTelefono === null || valorTelefono === '' || valorTelefono === 0 || isNaN(valorTelefono)){
+                document.getElementById('tel').style.height='102px'
+                document.getElementById('error-telefono').style.height='35px'
+                document.getElementById('telefono').style.border='3px solid red'
+            } else {
+                document.getElementById('telefono').style.border='3px solid green'
+            }
+        }
+    
+        $elTelefono.onfocus = function(){
+            document.getElementById('telefono').style.border='3px solid rgb(72, 33, 247)'
+            document.getElementById('error-telefono').style.height='0px'
+            document.getElementById('tel').style.height='67px'
+        }
+    }
+
+    $paisOtro.addEventListener('click', completeEmpresa)
+
+    $paisOtro.addEventListener('change', paisNoEsta)
+
+    $elNombre.addEventListener('click', nombreMal)
+
+    $laEmpresa.addEventListener('click', empresaMal)
+
+    $elCorreo.addEventListener('click', correoMal)
+
+    $elTelefono.addEventListener('click', telefonoMal)
+
+    const capturarDatos = (evt) => {
+        evt.preventDefault()
+        const nombre = $elNombre.value
+        const empresa = $laEmpresa.value
+        const pais = $paisOtro.value
+        const otropais = $elPaisOtro.value
+        const correo = $elCorreo.value
+        const telefono = Number($elTelefono.value)
+        //let datosOk = false
+        let elPais = ''
+        let nombreOk = false
+        let empresaOk = false
+        let paisOk = false
+        let correoOk = false
+        let telefonoOk = false
+    
+        if (nombre === null || nombre === ''){
+            document.getElementById('nom').style.height='102px'
+            document.getElementById('error-nombre').style.height='35px'
+            document.getElementById('nombre').style.border='3px solid red'
+            document.getElementById('nombre').onclick = function(){
+                document.getElementById('nombre').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-nombre').style.height='0px'
+                document.getElementById('nom').style.height='67px'
+            }
+            nombreOk = false
+        } else {
+            document.getElementById('nombre').style.border='3px solid green'
+            nombreOk = true
+        }
+    
+        if (empresa === null || empresa === ''){
+            document.getElementById('emp').style.height='102px'
+            document.getElementById('error-empresa').style.height='35px'
+            document.getElementById('empresa').style.border='3px solid red'
+            document.getElementById('empresa').onclick = function(){
+                document.getElementById('empresa').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-empresa').style.height='0px'
+                document.getElementById('emp').style.height='67px'
+            }
+            empresaOk = false
+        } else {
+            document.getElementById('empresa').style.border='3px solid green'
+            empresaOk = true
+        }
+    
+        if (pais === null || pais === '' || pais === 'vacio'){
+            document.getElementById('pa').style.height='102px'
+            document.getElementById('error-pais').style.height='35px'
+            document.getElementById('pais').style.border='3px solid red'
+            document.getElementById('pais').onclick = function(){
+                document.getElementById('pais').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-pais').style.height='0px'
+                document.getElementById('pa').style.height='67px'
+            }
+            paisOk = false
+        } else {
+            if (pais === 'orto'){
+                if (otropais === null || otropais === ''){
+                    document.getElementById('pa2').style.height='102px'
+                    document.getElementById('error-pais-otro').style.height='35px'
+                    document.getElementById('pais-otro').style.border='3px solid red'
+                    document.getElementById('pais-otro').onclick = function(){
+                        document.getElementById('pais-otro').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-pais-otro').style.height='0px'
+                        document.getElementById('pa2').style.height='67px'
+                    }
+                    paisOk = false
+                } else {
+                    document.getElementById('pais-otro').style.border='3px solid green'
+                    paisOk = true
+                    elPais = otropais
+                }
+            } else {
+                document.getElementById('pais').style.border='3px solid green'
+                paisOk = true
+                elPais = pais
+            }
+        }
+    
+        if (correo === null || correo === ''){
+            document.getElementById('mail').style.height='102px'
+            document.getElementById('error-correo').style.height='35px'
+            document.getElementById('correo').style.border='3px solid red'
+            document.getElementById('correo').onclick = function(){
+                document.getElementById('correo').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-correo').style.height='0px'
+                document.getElementById('mail').style.height='67px'
+            }
+            correoOk = false
+        } else {
+            document.getElementById('correo').style.border='3px solid green'
+            correoOk = true
+        }
+    
+        if (telefono === null || telefono === '' || telefono === 0 || isNaN(telefono)){
+            document.getElementById('tel').style.height='102px'
+            document.getElementById('error-telefono').style.height='35px'
+            document.getElementById('telefono').style.border='3px solid red'
+            document.getElementById('telefono').onclick = function(){
+                document.getElementById('telefono').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-telefono').style.height='0px'
+                document.getElementById('tel').style.height='67px'
+            }
+            telefonoOk = false
+        } else {
+            document.getElementById('telefono').style.border='3px solid green'
+            telefonoOk = true
+        }
+    
+        if(nombreOk === true && empresaOk === true && paisOk === true && correoOk === true && telefonoOk === true){
+
+            const clienteObj = {
+                id: Date.now(),
+                nombre: nombre,
+                empresa: empresa,
+                pais: elPais,
+                correo: correo,
+                telefono: telefono
+            }
+            datosCliente.push(clienteObj)
+            sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+            formularioDatos.reset()
+            document.getElementById('pa2').style.height='0px'
+            document.getElementById('pa2').style.margin='0'
+            clienteExistente = false
+
+            /*if (pais === 'orto') {
+                const clienteObj = {
+                    id: Date.now(),
+                    nombre: nombre,
+                    empresa: empresa,
+                    pais: otropais,
+                    correo: correo,
+                    telefono: telefono
+                }
+                datosCliente.push(clienteObj)
+                sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+        
+                sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+                document.getElementById('pa2').style.height='0px'
+                document.getElementById('pa2').style.margin='0'
+                crearCliente()
+                vengaElPasoDos()
+
+            } else {
+                const clienteObj = {
+                    id: Date.now(),
+                    nombre: nombre,
+                    empresa: empresa,
+                    pais: pais,
+                    correo: correo,
+                    telefono: telefono
+                }
+                datosCliente.push(clienteObj)
+                sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+
+                sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+                crearCliente()
+                vengaElPasoDos()
+
+            }*/
+
+            confirmarDatos()
+
+
+
+
+
+
+
+            /*
+            if (pais === 'orto'){
+                confirmacion = confirm(`Por favor confirme que sus datos sean correctos.\nNombre: ${nombre}\nEmpresa: ${empresa}\nPaís: ${otropais}\nCorreo electrónico: ${correo}\nTeléfono/móvil: ${telefono}\nSI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".`)
+            } else {
+                confirmacion = confirm(`Por favor confirme que sus datos sean correctos.\nNombre: ${nombre}\nEmpresa: ${empresa}\nPaís: ${pais}\nCorreo electrónico: ${correo}\nTeléfono/móvil: ${telefono}\nSI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".`)
+            }
+        
+            if (confirmacion === true){
+                if (pais === 'orto') {
+                    const clienteObj = {
+                        id: Date.now(),
+                        nombre: nombre,
+                        empresa: empresa,
+                        pais: otropais,
+                        correo: correo,
+                        telefono: telefono
+                    }
+                    datosCliente.push(clienteObj)
+                    //const cliEnte = JSON.stringify(clienteObj)
+                    //sessionStorage.setItem('Cliente', cliEnte)
+                    sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+                    document.getElementById('pa2').style.height='0px'
+                    document.getElementById('pa2').style.margin='0'
+                    crearCliente()
+                    vengaElPasoDos()
+                } else {
+                    const clienteObj = {
+                        id: Date.now(),
+                        nombre: nombre,
+                        empresa: empresa,
+                        pais: pais,
+                        correo: correo,
+                        telefono: telefono
+                    }
+                    datosCliente.push(clienteObj)
+                    //const cliEnte = JSON.stringify(clienteObj)
+                    //sessionStorage.setItem('Cliente', cliEnte)
+                    sessionStorage.setItem('Cliente', JSON.stringify(datosCliente))
+                    crearCliente()
+                    vengaElPasoDos()
+                }
+            } else {
+                return
+            }
+
+            */
+
+
+
+
+        } else {
+            return
+        }
+        //console.log(clienteNuevo)
+    }
+    
+    //console.log(clienteNuevo)
+    
+    formularioDatos.addEventListener('submit', capturarDatos)
+
+}
+
+const vengaElPasoDos = () => {
+
+    formularioDatos.style.display='none'
+    formularioProyecto.style.display='block'
+    console.log(clienteNuevo)
+
+    const tipoProyectoError = () => {
+        $tipoDeProyecto.onblur = function(){
+            if ($tipoDeProyecto.value === 'vacio'){
+                document.getElementById('protip').style.border='3px solid red'
+                document.getElementById('proyectotipo').style.height='102px'
+                document.getElementById('error-protip').style.height='35px'
+                $tipoDeProyecto.onfocus = function(){
+                    document.getElementById('protip').style.border='3px solid rgb(72, 33, 247)'
+                    document.getElementById('error-protip').style.height='0px'
+                    document.getElementById('proyectotipo').style.height='67px' 
+                    //tipoProyecto()
+                }
+            }
+        }
+        //tipoProyecto()
+    }
+    
+    const tipoProyecto = () => {
+        const elProyecto = $tipoDeProyecto.selectedIndex
+        const proyectoEleccion = $tipoDeProyecto.options[elProyecto]
+        if (proyectoEleccion.value != 'web' && proyectoEleccion.value != 'wordpress') {
+            document.getElementById('elementos__wp').style.height='0px'
+            document.getElementById('elementos__wp').style.overflow='hidden'
+            document.getElementById('elementos__web').style.height='0px'
+            document.getElementById('elementos__web').style.overflow='hidden'
+            if(proyectoEleccion.value === 'vacio' || proyectoEleccion.value === '' || proyectoEleccion.value === null){
+                document.getElementById('protip').style.border='3px solid red'
+                document.getElementById('proyectotipo').style.height='102px'
+                document.getElementById('error-protip').style.height='35px'
+                $tipoDeProyecto.onblur = function() {
+                    document.getElementById('protip').style.border='3px solid rgb(72, 33, 247)'
+                }
+            }
+        } else {
+            if(proyectoEleccion.value === 'web'){
+                document.getElementById('elementos__web').style.height='200px'
+                document.getElementById('elementos__web').style.overflow='visible'
+                document.getElementById('elementos__wp').style.height='0px'
+                document.getElementById('elementos__wp').style.overflow='hidden'
+                document.getElementById('protip').style.border='3px solid green'
+                tipoWeb()
+            }
+            if(proyectoEleccion.value === 'wordpress'){
+                document.getElementById('elementos__wp').style.height='160px'
+                document.getElementById('elementos__wp').style.overflow='visible'
+                document.getElementById('elementos__web').style.height='0px'
+                document.getElementById('elementos__web').style.overflow='hidden'
+                document.getElementById('protip').style.border='3px solid green'
+                tipoWp()
+            }
+            
+        }
+    }
+    
+    const tipoWeb = () => {
+        $tipoDisenio.addEventListener('click', () => {
+            $tipoDisenio.onblur = function(){
+                if($tipoDisenio.value === 'vacio'){
+                    document.getElementById('disenio').style.height='102px'
+                    document.getElementById('error-dise').style.height='35px'
+                    document.getElementById('dise').style.border='3px solid red'
+                    $tipoDisenio.onfocus = function(){
+                        document.getElementById('dise').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-dise').style.height='0px'
+                        document.getElementById('disenio').style.height='67px'
+                    }
+                } else {
+                    document.getElementById('dise').style.border='3px solid green'
+                }
+            }
+        })
+        $tipoDisenio.addEventListener('change', () => {
+            const elDisenio = $tipoDisenio.selectedIndex
+            const disenioEleccion = $tipoDisenio.options[elDisenio]
+            if(disenioEleccion.value === 'vacio'){
+                document.getElementById('disenio').style.height='102px'
+                document.getElementById('error-dise').style.height='35px'
+                document.getElementById('dise').style.border='3px solid red'
+                $tipoDisenio.onfocus = function(){
+                    document.getElementById('dise').style.border='3px solid rgb(72, 33, 247)'
+                    document.getElementById('error-dise').style.height='0px'
+                    document.getElementById('disenio').style.height='67px'
+                }
+            }
+        })
+        $disenioDistri.addEventListener('click', () => {
+            $disenioDistri.onblur = function(){
+                if($disenioDistri.value === 'vacio'){
+                    document.getElementById('distribucion').style.height='102px'
+                    document.getElementById('error-distri').style.height='35px'
+                    document.getElementById('distri').style.border='3px solid red'
+                    $disenioDistri.onfocus = function(){
+                        document.getElementById('distri').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-distri').style.height='0px'
+                        document.getElementById('distribucion').style.height='67px'
+                    }
+                } else {
+                    document.getElementById('distri').style.border='3px solid green'
+                }
+            }
+        })
+        $disenioDistri.addEventListener('change', () => {
+            const laDistri = $disenioDistri.selectedIndex
+            const distriEleccion = $disenioDistri.options[laDistri]
+            if (distriEleccion.value != 'secciones') {
+                document.getElementById('seccionesweb').style.height='0px'
+                document.getElementById('seccionesweb').style.margin='0'
+                document.getElementById('elementos__web').style.height='200px'
+                if(distriEleccion.value === 'vacio' || distriEleccion.value === '' || distriEleccion.value === null ) {
+                    document.getElementById('distribucion').style.height='102px'
+                    document.getElementById('error-distri').style.height='35px'
+                    document.getElementById('distri').style.border='3px solid red'
+                    $disenioDistri.onfocus = function(){
+                        document.getElementById('distri').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-distri').style.height='0px'
+                        document.getElementById('distribucion').style.height='67px'
+                    }
+                }
+            } else {
+                document.getElementById('distri').style.border='3px solid green'
+                document.getElementById('elementos__web').style.height='242px'
+                document.getElementById('seccionesweb').style.height='67px' 
+                document.getElementById('seccionesweb').style.margin='0 0 15px' 
+                $seccionesWeb.addEventListener('click', () => {
+                    $seccionesWeb.onblur = function(){
+                        if($seccionesWeb.value === null || $seccionesWeb.value === '' || Number($seccionesWeb.value) === 0){
+                            document.getElementById('elementos__web').style.height='277px'
+                            document.getElementById('seccionesweb').style.height='102px'
+                            document.getElementById('error-websecc').style.height='35px'
+                            document.getElementById('websecc').style.border='3px solid red'
                         } else {
-                            error = alert('Por favor, introduzca el NÚMERO de secciones que tendrá su sitio web.')
+                            document.getElementById('websecc').style.border='3px solid green'
                         }
-                        secciones = Number(prompt('Indique el número de secciones que deberá tener su sitio web'))
                     }
+                    $seccionesWeb.onfocus = function(){
+                        document.getElementById('elementos__web').style.height='242px'
+                        document.getElementById('websecc').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-websecc').style.height='0px'
+                        document.getElementById('seccionesweb').style.height='67px' 
+                    }
+                })
+            }
+    
+        })
+    }
+    
+    const tipoWp = () => {
+        $tipoPlantilla.addEventListener('click', () => {
+            $tipoPlantilla.onblur = function(){
+                if($tipoPlantilla.value === 'vacio'){
+                    document.getElementById('plantilla').style.height='102px'
+                    document.getElementById('error-planti').style.height='35px'
+                    document.getElementById('planti').style.border='3px solid red'
+                    $tipoPlantilla.onfocus = function(){
+                        document.getElementById('planti').style.border='3px solid rgb(72, 33, 247)'
+                        document.getElementById('error-planti').style.height='0px'
+                        document.getElementById('plantilla').style.height='67px'
+                    }
+                } else {
+                    document.getElementById('planti').style.border='3px solid green'
                 }
-                datosProvisoriosSitio.push(secciones)
+            }
+        })
+        $tipoPlantilla.addEventListener('change', () => {
+            const laPlanti = $tipoPlantilla.selectedIndex
+            const plantiEleccion = $tipoPlantilla.options[laPlanti]
+            if(plantiEleccion.value === 'vacio'){
+                document.getElementById('plantilla').style.height='102px'
+                document.getElementById('error-planti').style.height='35px'
+                document.getElementById('planti').style.border='3px solid red'
+                $tipoPlantilla.onfocus = function(){
+                    document.getElementById('planti').style.border='3px solid rgb(72, 33, 247)'
+                    document.getElementById('error-planti').style.height='0px'
+                    document.getElementById('plantilla').style.height='67px'
+                }
             } else {
-                division = 'integrado'
-                secciones = 1
-                datosProvisoriosSitio.push(division)
-                datosProvisoriosSitio.push(secciones)
+                $tipoPlantilla.onblur = function(){
+                    document.getElementById('planti').style.border='3px solid green'
+                }
             }
-            // CONFIRMAR DATOS
-            confirmarDatos = confirm('Por favor confirme que los datos de su sitio web sean correctos. ' + 'Tipo de proyecto: ' + datosProvisoriosSitio[0] + ' / Tipo de diseño: ' + datosProvisoriosSitio[1] + ' / división del contenido: ' + datosProvisoriosSitio[3] + ' / Cantidad de secciones: ' + datosProvisoriosSitio[4] + ' // SI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".')
-            if (confirmarDatos === true) {
-                nuevaWeb = new Proyecto(datosProvisoriosSitio[0], datosProvisoriosSitio[1], datosProvisoriosSitio[2], datosProvisoriosSitio[3], datosProvisoriosSitio[4])
-                break
+        })
+        $seccionesWp.addEventListener('click', () => {
+            $seccionesWp.onblur = function(){
+                if($seccionesWp.value === null || $seccionesWp.value === '' || Number($seccionesWp.value) === 0){
+                    document.getElementById('elementos__wp').style.height='195px'
+                    document.getElementById('seccioneswp').style.height='102px'
+                    document.getElementById('error-wpsecc').style.height='35px'
+                    document.getElementById('wpsecc').style.border='3px solid red'
+                } else {
+                    document.getElementById('wpsecc').style.border='3px solid green'
+                }
             }
-        }
+            $seccionesWp.onfocus = function(){
+                document.getElementById('elementos__wp').style.height='160px'
+                document.getElementById('wpsecc').style.border='3px solid rgb(72, 33, 247)'
+                document.getElementById('error-wpsecc').style.height='0px'
+                document.getElementById('seccioneswp').style.height='67px' 
+            }
+        })
     }
-    // TIPO DE PROYECTO: WORDPRESS
-    if (proyectoTipo === 'wordpress') {
-        inicioRecoleccionDatos = true
-        aprobarDatos = false
-        while (inicioRecoleccionDatos === true || confirmarDatos === aprobarDatos) {
-            datosProvisoriosSitio = []
-            datosProvisoriosSitio.push(proyectoTipo)
-            // TIPO DE DISEÑO: FALSE (PORQUE ES UNA OPCIÓN ÚNICAMENTE PARA WEB TRADICIONAL)
-            tipoDisenio = false
-            datosProvisoriosSitio.push(tipoDisenio)
-            // TIPO DE PLANTILLA
-            tipoPlantilla = confirm('El sistema de Wordpress trabaja con plantillas que pueden personalizarse para adaptarlas a las necesidades de su proyecto. Wordpress provee de una lista de plantillas de uso gratuito cuyo diseños y la posibilidad de personalización poseen no pocas limitaciones. Sin embargo, tambien existen a la venta plantillas profesionales que permiten un alto nivel de personalización y otras tantas funciones que pueden potenciar el rendimiento de su sitio web. Si desea trabajar con una plantilla gratuita de Wordpress, presione "ACEPTAR", si desea trabajar con una plantilla profesional de pago presione "CANCELAR".')
-            if (tipoPlantilla === true) {
-                plantillaTipo = 'gratuita'
+
+    $tipoDeProyecto.addEventListener('click', tipoProyectoError)
+
+    $tipoDeProyecto.addEventListener('change', tipoProyecto)
+
+    const capturarProyecto = (evt) => {
+        evt.preventDefault()
+        const tipoProy = $tipoDeProyecto.value
+        const tipoDis = $tipoDisenio.value
+        const disDistri = $disenioDistri.value
+        const webSec = $seccionesWeb.value
+        const wpSec = $seccionesWp.value
+        const tipoPlanti = $tipoPlantilla.value
+    
+        if (tipoProy === 'web'){
+            confirmacionP = confirm(`Por favor confirme que la información brindada sea correcta.\nTipo de proyecto: ${tipoProy}\nTipo de diseño: ${tipoDis}\nDistribución del contenido: ${disDistri}\nSecciones: ${webSec}\nSI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".`)
+        } else {
+            confirmacionP = confirm(`Por favor confirme que la información brindada sea correcta.\nTipo de proyecto: ${tipoProy}\nTipo de plantilla: ${tipoPlanti}\nSecciones: ${wpSec}\nSI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".`)
+        }
+    
+        if (confirmacionP === true){
+            if (tipoProy === 'web') {
+                const proyectoObj = {
+                    proyectoT: tipoProy,
+                    disenio: tipoDis,
+                    distribucion: disDistri,
+                    secciones: webSec,
+                    plantilla: 'no'
+                }
+                datosProyecto.push(proyectoObj)
+                //const cliEnte = JSON.stringify(clienteObj)
+                //sessionStorage.setItem('Cliente', cliEnte)
+                sessionStorage.setItem('Proyecto', JSON.stringify(datosProyecto))
+                crearProyecto()
+                vengaElPasoTres()
             } else {
-                plantillaTipo = 'profesional'
-            }
-            datosProvisoriosSitio.push(plantillaTipo)
-            // DIVISION DEL CONTENIDO: PARA WORDPRESS SIEMPRE SERÁ "SECCIONES"
-            division = 'secciones'
-            datosProvisoriosSitio.push(division)
-            // CANTIDAD DE SECCIONES
-            secciones = Number(prompt('Indique el número de secciones que deberá tener su sitio web'))
-            while (isNaN(secciones) || secciones === 0 || secciones === 1) {
-                if (secciones > 1) {
-                    break
-                } else {
-                    if (secciones === 0 || secciones === 1) {
-                        error = alert('La página no puede tener menos de 2 secciones.')
-                    } else {
-                        error = alert('Por favor, introduzca el NÚMERO de secciones que tendrá su sitio web.')
-                    }
-                    secciones = Number(prompt('Indique el número de secciones que deberá tener su sitio web'))
+                const proyectoObj = {
+                    proyectoT: tipoProy,
+                    disenio: 'no',
+                    distribucion: 'no',
+                    secciones: wpSec,
+                    plantilla: tipoPlanti
                 }
+                datosProyecto.push(proyectoObj)
+                //const cliEnte = JSON.stringify(clienteObj)
+                //sessionStorage.setItem('Cliente', cliEnte)
+                sessionStorage.setItem('Proyecto', JSON.stringify(datosProyecto))
+                crearProyecto()
+                vengaElPasoTres()
             }
-            datosProvisoriosSitio.push(secciones)
-            // CONFIRMAR DATOS
-            confirmarDatos = confirm('Por favor confirme que los datos de su sitio web sean correctos. ' + 'Tipo de proyecto: ' + datosProvisoriosSitio[0] + ' / Tipo de plantilla: ' + datosProvisoriosSitio[2] + ' / Cantidad de secciones: ' + datosProvisoriosSitio[4] + ' // SI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".')
-            if (confirmarDatos === true) {
-                nuevaWeb = new Proyecto(datosProvisoriosSitio[0], datosProvisoriosSitio[1], datosProvisoriosSitio[2], datosProvisoriosSitio[3], datosProvisoriosSitio[4])
-                break
-            }
+        } else {
+            return
         }
+        console.log(proyectoNuevo)
     }
+
+    formularioProyecto.addEventListener('submit', capturarProyecto)
 }
 
-function datosAdicionales() {
-    introduccionAdicionales = alert('A continuación le ofreceremos una serie de servicios adicionales de gran utilidad que Usted podrá optar por contratar o no.')
-    inicioRecoleccionDatos = true
-    aprobarDatos = false
-    while (inicioRecoleccionDatos === true || confirmarDatos === aprobarDatos) {
-        datosProvisoriosAdicionales = []
-        // HOSTING
-        hosting = confirm('¿Desea incluir en el presupuesto el servicio de web hosting o ya ha contratado uno? Si desea incluirlo, presione "Aceptar", de lo contrario presione "Cancelar".')
-        if (hosting === true) {
-            quiereHosting = 'Si'
-        } else {
-            quiereHosting = 'No'
+const vengaElPasoTres = () => {
+
+    //formularioDatos.style.display='none'
+    formularioProyecto.style.display='none'
+    formularioAdicionales.style.display='block'
+
+    const capturarAdicionales = (evt) => {
+        evt.preventDefault()
+        const hosting = $host.checked
+        const dominio = $domi.checked
+        const mantenimiento = $mante.checked
+        const logo = $lgo.checked
+        
+        const adicionalesObj = {
+            hosting: hosting,
+            dominio: dominio,
+            mantenimiento: mantenimiento,
+            logo: logo
         }
-        datosProvisoriosAdicionales.push(hosting)
-        // DOMINIO
-        dominio = confirm('¿Desea incluir en el presupuesto el registro de un dominio .com o ya posee su dominio? Si desea incluirlo, presione "Aceptar", de lo contrario presione "Cancelar".')
-        if (dominio === true) {
-            quiereDominio = 'Si'
-        } else {
-            quiereDominio = 'No'
-        }
-        datosProvisoriosAdicionales.push(dominio)
-        // MANTENIMIENTO
-        mantenimiento = confirm('¿Desea contar con un servicio de mantenimiento para su sitio web? Si lo desea, presione "Aceptar", de lo contrario presione "Cancelar".')
-        if (mantenimiento === true) {
-            quiereMantenimiento = 'Si'
-        } else {
-            quiereMantenimiento = 'No'
-        }
-        datosProvisoriosAdicionales.push(mantenimiento)
-        // DISEÑO DE LOGOTIPO
-        logo = confirm('¿Desea incluir en el presupuesto el diseño de un logo para su proyecto o ya posee uno? Si desea incluirlo, presione "Aceptar", de lo contrario presione "Cancelar".')
-        if (logo === true) {
-            quiereLogo = 'Si'
-        } else {
-            quiereLogo = 'No'
-        }
-        datosProvisoriosAdicionales.push(logo)
-        // CONFIRMAR DATOS
-        confirmarDatos = confirm('Por favor confirme que sus datos sean correctos. ' + 'Servicio de web hosting: ' + quiereHosting + ' / Servicio de registro de dominio .com : ' + quiereDominio + ' / Servicio de mantenimiento web: ' + quiereMantenimiento + ' / Servicio de diseño de logo: ' + quiereLogo + ' // SI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".')
-        if (confirmarDatos === true) {
-            serviciosAdicionales = new Adicionales(datosProvisoriosAdicionales[0], datosProvisoriosAdicionales[1], datosProvisoriosAdicionales[2], datosProvisoriosAdicionales[3])
-            break
-        }
+        datosAdicionales.push(adicionalesObj)
+        //const cliEnte = JSON.stringify(clienteObj)
+        //sessionStorage.setItem('Cliente', cliEnte)
+        sessionStorage.setItem('Adicionales', JSON.stringify(datosAdicionales))
+        crearAdicionales()
+        formularioAdicionales.reset()
+        console.log(adicionalesNuevo)
     }
+
+    formularioAdicionales.addEventListener('submit', capturarAdicionales)
 }
-
-function datosPautasTrabajo() {
-    introduccionPautas = alert('A continuación le haremos algunas preguntas sobre las pautas básicas de trabajo como el plazo de entrega del proyecto terminado y la forma de pago.')
-    inicioRecoleccionDatos = true
-    aprobarDatos = false
-    while (inicioRecoleccionDatos === true || confirmarDatos === aprobarDatos) {
-        datosProvisoriosPautas = []
-        // PLAZO DE ENTREGA
-        plazoEntrega = Number(prompt('¿En qué plazo necesita tener su sitio web terminado y funcionando? Indique el plazo en la cantidad de días hábiles (ej: para una semana serán 5 días hábiles, por lo que debe escribir el número 5).'))
-        if (plazoEntrega >= 5 && plazoEntrega <= 40) {
-        } else {
-            while (isNaN(plazoEntrega) || plazoEntrega < 5 || plazoEntrega > 40) {
-                if (plazoEntrega < 5) {
-                    error = alert('No podemos presupuestar proyectos con plazos de entrega menos a 1 semana (5 días hábiles).')
-                }
-                if (plazoEntrega > 40) {
-                    error = alert('Para proyectos complejos que llevan más de 2 meses (40 días hábiles) de desarrollo debe comunicarse directamente con nostros para recibir un presupuesto personalizado.')
-                }
-                if (isNaN(plazoEntrega)) {
-                    error = alert('Por favor, introduzca un NÚMERO igual o mayor a 5.')
-                }
-                plazoEntrega = Number(prompt('¿En qué plazo necesita tener su sitio web terminado y funcionando? Indique el plazo en la cantidad de días hábiles (ej: para una semana serán 5 días hábiles, por lo que debe escribir el número 5).'))
-            }
-        }
-        datosProvisoriosPautas.push(plazoEntrega)
-        // REUNIONES PRESENCIALES
-        visitas = confirm('Las reuniones presenciales con nuestro equipo de trabajo tienen un costo extra por cuestiones de logística ¿Necesita tener reuniones presenciales con nuestro equipo? Si considera que será necesario, presione "Aceptar", de lo contrario presione "Cancelar".')
-        if (visitas === true) {
-            presenciales = 'Si'
-            cantidadVisitas = Number(prompt('Indique el número de reuniones con nuestro equipo de trabajo que cree que necesitará'))
-            while (isNaN(cantidadVisitas) || cantidadVisitas === 0) {
-                if (cantidadVisitas > 0) {
-                    break
-                } else {
-                    if (cantidadVisitas === 0) {
-                        error = alert('Ya indicaste que necesitabas reuniones presenciales con nuestro equipo, por lo que la cantidad de 0 visitas no es válidad. Para continuar, indica la cantidad de reuniones presenciales que deseas, debiendo ser mínimo 1.')
-                    } else {
-                        error = alert('Por favor, introduzca un NÚMERO.')
-                    }
-                    cantidadVisitas = Number(prompt('Indique el número de reuniones con nuestro equipo de trabajo que cree que necesitará'))
-                }
-            }
-        } else {
-            presenciales = 'No'
-            cantidadVisitas = 0
-        }
-        datosProvisoriosPautas.push(visitas)
-        datosProvisoriosPautas.push(cantidadVisitas)
-        // FORMA DE PAGO
-        cuotas = confirm('¿Cómo desea realizar el pago del servicio? Si desea realizarlo en cuotas, presione "Aceptar", de lo contrario presione "Cancelar". Tenga en cuenta que tendrá recargos por la cantidad de cuotas así como un descuento sobre el precio final abonando en un sólo pago.')
-        if (cuotas === true) {
-            formaPago = 'cuotas'
-            cantidadCuotas = Number(prompt('Indique el número de cuotas en que desea realizar el pago. Puede elegir entre 2, 3, 6 y 12 cuotas.'))
-            while (isNaN(cantidadCuotas) || cantidadCuotas != 2 || cantidadCuotas != 3 || cantidadCuotas != 6 || cantidadCuotas != 12) {
-                if (cantidadCuotas === 2 || cantidadCuotas === 3 || cantidadCuotas === 6 || cantidadCuotas === 12) {
-                    break
-                } else {
-                    if (isNaN(cantidadCuotas)) {
-                        error = alert('Por favor, indique la cantidad de cuotas en las que desea abonar nuestros servicios.')
-                    } else if (cantidadCuotas != 2 || cantidadCuotas != 3 || cantidadCuotas != 6 || cantidadCuotas != 12) {
-                        error = alert('Sólo aceptamos pagos en 2, 3, 6 y 12 cuotas, elija una de esas 4 opciones por favor.')
-                    }
-                    cantidadCuotas = Number(prompt('Indique el número de cuotas en que desea realizar el pago. Puede elegir entre 2, 3, 6 y 12 cuotas.'))
-                }
-            }
-        } else {
-            formaPago = 'un pago'
-            cantidadCuotas = 1
-        }
-        datosProvisoriosPautas.push(cuotas)
-        datosProvisoriosPautas.push(cantidadCuotas)
-        // CONFIRMAR DATOS
-        confirmarDatos = confirm('Por favor confirme que sus datos sean correctos. ' + 'Plazo de entrega (en días hábiles): ' + datosProvisoriosPautas[0] + ' / Reuniones presenciales: ' + presenciales + ' / Cantidad de reuniones presenciales (si eligió no tener reuniones presenciales figurará "0"): ' + datosProvisoriosPautas[2] + ' / Forma de pago: ' + formaPago + ' / Cantidad de cuotas (si escogió pagar en un pago, figurará "1" cuota): ' + datosProvisoriosPautas[4] + ' // SI LOS DATOS SON CORRECTOS PRESIONE "ACEPTAR", SI DESEA MODIFICARLOS PRESIONE "CANCELAR".')
-        if (confirmarDatos === true) {
-            nuevasPautasTrabajo = new PautasTrabajo(datosProvisoriosPautas[0], datosProvisoriosPautas[1], datosProvisoriosPautas[2], datosProvisoriosPautas[3], datosProvisoriosPautas[4])
-            break
-        }
-    }
-}
-
-function calcularPresupuesto() {
-    datosNuevoPresupuesto = {
-        tipoDeProyecto: nuevaWeb.proyectoTipo,
-        tipoDeDisenio: nuevaWeb.disenioTipo,
-        tipoDePlantilla: nuevaWeb.plantillaTipo,
-        divisionDeSecciones: nuevaWeb.divisionSecciones,
-        numeroDeSecciones: nuevaWeb.numeroSecciones,
-        adicionalHosting: serviciosAdicionales.hosting,
-        adicionalDominio: serviciosAdicionales.dominio,
-        adicionalMantenimiento: serviciosAdicionales.mantenimiento,
-        adicionalLogo: serviciosAdicionales.logo,
-        plazoDeEntrega: nuevasPautasTrabajo.plazoEntrega,
-        reunionesPresenciales: nuevasPautasTrabajo.presenciales,
-        cantidadDeReuniones: nuevasPautasTrabajo.cantidadPresenciales,
-        formaDePago: nuevasPautasTrabajo.formaPago,
-        cantidadDeCuotas: nuevasPautasTrabajo.cuotas
-    }
-    //CÁLCULO PRECIO POR PLAZO DE ENTREGA
-    switch (datosNuevoPresupuesto.plazoDeEntrega) {
-        case 5:
-            precioBase = PRECIO_PLAZO_SEMANA
-            break
-        case 10:
-            precioBase = PRECIO_PLAZO_QUINCENA
-            break
-        case 20:
-            precioBase = PRECIO_PLAZO_MES
-            break
-        default:
-            if (datosNuevoPresupuesto.plazoDeEntrega > 5 && datosNuevoPresupuesto.plazoDeEntrega < 10) {
-                diasExtra = datosNuevoPresupuesto.plazoDeEntrega - 5
-                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra
-                precioBase = PRECIO_PLAZO_SEMANA + adicionalXdiasExtra
-            }
-            if (datosNuevoPresupuesto.plazoDeEntrega > 10 && datosNuevoPresupuesto.plazoDeEntrega < 20) {
-                diasExtra = datosNuevoPresupuesto.plazoDeEntrega - 10
-                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra
-                precioBase = PRECIO_PLAZO_QUINCENA + adicionalXdiasExtra
-            }
-            if (datosNuevoPresupuesto.plazoDeEntrega > 20 && datosNuevoPresupuesto.plazoDeEntrega < 41) {
-                diasExtra = datosNuevoPresupuesto.plazoDeEntrega - 20
-                adicionalXdiasExtra = PRECIO_DIA_EXTRA * diasExtra
-                precioBase = PRECIO_PLAZO_MES + adicionalXdiasExtra
-            }
-    }
-    // CÁLCULO PRECIO POR TIPO DE PROYECTO
-    if (datosNuevoPresupuesto.tipoDeProyecto === 'wordpress') {
-        if (datosNuevoPresupuesto.tipoDePlantilla === 'profesional') {
-            precioXplantilla = EXTRA_PLANTILLA_PROF
-        } else {
-            precioXplantilla = 0
-        }
-        precioXplazoYtipo = precioBase + EXTRA_WORDPRESS + precioXplantilla
-    } else {
-        precioXplazoYtipo = precioBase
-    }
-    // CÁLCULO PRECIO POR SECCIONES
-    if (datosNuevoPresupuesto.numeroDeSecciones <= MAXIMO_SECCIONES_INC) {
-        adicionalXsecciones = 0
-    } else {
-        seccionesExtra = datosNuevoPresupuesto.numeroDeSecciones - MAXIMO_SECCIONES_INC
-        adicionalXsecciones = seccionesExtra * RECARGO_SECCIONES_PAG
-    }
-    // CÁLCULO PRECIO POR SERVICIOS ADICIONALES
-    if (datosNuevoPresupuesto.adicionalHosting === true) {
-        addHosting = HOSTING_ANUAL
-    } else {
-        addHosting = 0
-    }
-    if (datosNuevoPresupuesto.adicionalDominio === true) {
-        addDominio = DOMINIO_ANUAL
-    } else {
-        addDominio = 0
-    }
-    if (datosNuevoPresupuesto.adicionalMantenimiento === true) {
-        addMante = MANTENIMIENTO_ANUAL
-    } else {
-        addMante = 0
-    }
-    if (datosNuevoPresupuesto.adicionalLogo === true) {
-        addLogo = EXTRA_LOGO
-    } else {
-        addLogo = 0
-    }
-    adicionales = addHosting + addDominio + addMante + addLogo
-    // CÁLCULO PRECIO POR REUNIONES PRESENCIALES
-    if (datosNuevoPresupuesto.reunionesPresenciales === false) {
-        precioXvisitas = 0
-    } else {
-        precioXvisitas = datosNuevoPresupuesto.cantidadDeReuniones * RECARGO_PRESENCIAL
-    }
-    // CÁLCULO DEL PRECIO FINAL
-    precioProvisorio = precioXplazoYtipo + adicionalXsecciones + adicionales + precioXvisitas
-    if (datosNuevoPresupuesto.tipoDeDisenio === 'framework') {
-        precioProvConDesc = precioProvisorio - DESC_FRAMEWORK
-    } else {
-        precioProvConDesc = precioProvisorio
-    }
-    if (datosNuevoPresupuesto.formaDePago === false) {
-        descuento = Number(((precioProvConDesc * DESCUENTO_UN_PAGO) / 100).toFixed(2))
-        precioFinal = Number((precioProvConDesc - descuento).toFixed(2))
-    } else {
-        switch (datosNuevoPresupuesto.cantidadDeCuotas) {
-            case 2:
-                precioFinal = precioProvConDesc + RECARGO_DOS_CUOTAS
-                break
-            case 3:
-                precioFinal = precioProvConDesc + RECARGO_TRES_CUOTAS
-                break
-            case 6:
-                precioFinal = precioProvConDesc + RECARGO_SEIS_CUOTAS
-                break
-            case 12:
-                precioFinal = precioProvConDesc + RECARGO_DOCE_CUOTAS
-                break
-        }
-    }
-    precioEnPesos = Number((precioFinal * COTIZACION_DOLAR).toFixed(2))
-}
-
-function mostrarPresupuesto() {
-    const mostrarDatosCliente = ['<h3>Cliente:</h3><br><p>', nuevoCliente.nombre, '</p><br><h3>País:</h3><br><p>', nuevoCliente.pais, '</p><br><h3>Empresa:</h3><br><p>', nuevoCliente.empresa, '</p><br><h3>Correo electrónico:</h3><br><p>', nuevoCliente.mail, '</p><br><h3>Celular/móvil:</h3><br><p>', nuevoCliente.celular, '</p><br><br>']
-    document.write('<h2>Datos del cliente:</h2><br><br>')
-    for (i = 0; i < 11; i += 1) {
-        document.write(mostrarDatosCliente[i])
-    }
-    document.write('<h2>Este es el detalle de su presupuesto:</h2><br>')
-    // TABLA
-    document.write('<table class="tabla__detalle"><tbody><tr class="tabla__detalle--titulos"><td class="tabla__detalle--cant">Cant.</td><td class="tabla__detalle--desc">Descripción</td><td class="tabla__detalle--vals">Unitario</td><td class="tabla__detalle--vals">Total</td></tr>')
-    // FILA PROYECTO
-    document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">')
-    if (datosNuevoPresupuesto.tipoDeProyecto === 'web') {
-        document.write('Sitio Web tradicional (Tipo de diseño: ')
-        if (datosNuevoPresupuesto.tipoDeDisenio === 'framework') {
-            document.write('basado en framework)</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr>')
-        } else {
-            document.write('a medida)</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr>')
-        }
-    }
-    if (datosNuevoPresupuesto.tipoDeProyecto === 'wordpress') {
-        document.write('Plantilla de Wordpress personalizada</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr><tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Adicional por instalación y gestión de plantilla en WP</td><td class="tabla__detalle--vals">' + EXTRA_WORDPRESS + '</td><td class="tabla__detalle--vals">' + EXTRA_WORDPRESS + '</td></tr>')
-        if (datosNuevoPresupuesto.tipoDePlantilla === 'profesional') {
-            document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Adicional por plantilla de pago (precio de plantilla + instalación)</td><td class="tabla__detalle--vals">' + EXTRA_PLANTILLA_PROF + '</td><td class="tabla__detalle--vals">' + EXTRA_PLANTILLA_PROF + '</td></tr>')
-        }
-    }
-    // FILA PLAZO
-    document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Precio base según plazo: ')
-    if (datosNuevoPresupuesto.plazoDeEntrega >= 5 && datosNuevoPresupuesto.plazoDeEntrega < 10) {
-        document.write('1 semana (5 días hábiles)</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_SEMANA + '</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_SEMANA + '</td></tr>')
-        if (datosNuevoPresupuesto.plazoDeEntrega != 5) {
-            document.write('<tr><td class="tabla__detalle--cant">' + diasExtra + '</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">' + PRECIO_DIA_EXTRA + '</td><td class="tabla__detalle--vals">' + adicionalXdiasExtra + '</td></tr>')
-        }
-    }
-    if (datosNuevoPresupuesto.plazoDeEntrega >= 10 && datosNuevoPresupuesto.plazoDeEntrega < 20) {
-        document.write('1 quincena (10 días hábiles)</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_QUINCENA + '</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_QUINCENA + '</td></tr>')
-        if (datosNuevoPresupuesto.plazoDeEntrega != 10) {
-            document.write('<tr><td class="tabla__detalle--cant">' + diasExtra + '</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">' + PRECIO_DIA_EXTRA + '</td><td class="tabla__detalle--vals">' + adicionalXdiasExtra + '</td></tr>')
-        }
-    }
-    if (datosNuevoPresupuesto.plazoDeEntrega >= 20 && datosNuevoPresupuesto.plazoDeEntrega < 41) {
-        document.write('1 mes (20 días hábiles)</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_MES + '</td><td class="tabla__detalle--vals">' + PRECIO_PLAZO_MES + '</td></tr>')
-        if (datosNuevoPresupuesto.plazoDeEntrega != 20) {
-            document.write('<tr><td class="tabla__detalle--cant">' + diasExtra + '</td><td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td><td class="tabla__detalle--vals">' + PRECIO_DIA_EXTRA + '</td><td class="tabla__detalle--vals">' + adicionalXdiasExtra + '</td></tr>')
-        }
-    }
-    // FILA SECCIONES
-    if (datosNuevoPresupuesto.numeroDeSecciones > MAXIMO_SECCIONES_INC) {
-        document.write('<tr><td class="tabla__detalle--cant">5</td><td class="tabla__detalle--desc">Secciones incluidas en el sitio (hasta 5 sin costo extra)</td><td class="tabla__detalle--vals">-</td><td class="tabla__detalle--vals">-</td></tr><tr><td class="tabla__detalle--cant">' + seccionesExtra + '</td><td class="tabla__detalle--desc">Adicional por secciones extra</td><td class="tabla__detalle--vals">' + RECARGO_SECCIONES_PAG + '</td><td class="tabla__detalle--vals">' + adicionalXsecciones + '</td></tr>')
-    }
-    // FILAS SERVICIOS ADICIONALES
-    if (datosNuevoPresupuesto.adicionalHosting === true) {
-        document.write('<tr><td class="tabla__detalle--cant">12</td><td class="tabla__detalle--desc">Servicio de Web Hosting*</td><td class="tabla__detalle--vals">' + HOSTING_ANUAL / 12 + '</td><td class="tabla__detalle--vals">' + HOSTING_ANUAL + '</td></tr>')
-    }
-    if (datosNuevoPresupuesto.adicionalDominio === true) {
-        document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Servicio registro de dominio*</td><td class="tabla__detalle--vals">' + DOMINIO_ANUAL + '</td><td class="tabla__detalle--vals">' + DOMINIO_ANUAL + '</td></tr>')
-    }
-    if (datosNuevoPresupuesto.adicionalLogo === true) {
-        document.write('<tr><td class="tabla__detalle--cant">1</td><td class="tabla__detalle--desc">Diseño de logo</td><td class="tabla__detalle--vals">' + EXTRA_LOGO + '</td><td class="tabla__detalle--vals">' + EXTRA_LOGO + '</td></tr>')
-    }
-    if (datosNuevoPresupuesto.adicionalMantenimiento === true) {
-        document.write('<tr><td class="tabla__detalle--cant">12</td><td class="tabla__detalle--desc">Servicio de Mantenimiento Web*</td><td class="tabla__detalle--vals">' + MANTENIMIENTO_ANUAL / 12 + '</td><td class="tabla__detalle--vals">' + MANTENIMIENTO_ANUAL + '</td></tr>')
-    }
-    // FILA REUNIONES PRESENCIALES
-    if (datosNuevoPresupuesto.reunionesPresenciales === true) {
-        document.write('<tr><td class="tabla__detalle--cant">' + datosNuevoPresupuesto.cantidadDeReuniones + '</td><td class="tabla__detalle--desc">Recargo por reuniones presenciales</td><td class="tabla__detalle--vals">' + RECARGO_PRESENCIAL + '</td><td class="tabla__detalle--vals">' + precioXvisitas + '</td></tr>')
-    }
-    // FILA SUBTOTAL
-    document.write('<tr class="tabla__detalle--titulos"><td colspan="3" class="tabla__detalle--total">SUB-TOTAL U$D</td><td class="tabla__detalle--vals">' + precioProvisorio + '</td></tr>')
-    // SI EL TIPO DE DISEÑO ES FRAMEWORK, DESCUENTO
-    if (datosNuevoPresupuesto.tipoDeDisenio === 'framework') {
-        document.write('<tr><td colspan="3" class="tabla__detalle--total">Descuento por diseño basado en framework</td><td class="tabla__detalle--vals">-' + DESC_FRAMEWORK + '</td></tr>')
-    }
-    // FORMA DE PAGO
-    document.write('<tr><td colspan="3" class="tabla__detalle--total">')
-    if (datosNuevoPresupuesto.formaDePago === false) {
-        document.write('Descuento por abonar en un pago</td><td class="tabla__detalle--vals">-' + descuento)
-    } else {
-        document.write('Recargo por pago en ')
-        switch (datosNuevoPresupuesto.cantidadDeCuotas) {
-            case 2:
-                document.write(datosNuevoPresupuesto.cantidadDeCuotas + ' cuotas</td><td class="tabla__detalle--vals">' + RECARGO_DOS_CUOTAS)
-                break
-            case 3:
-                document.write(datosNuevoPresupuesto.cantidadDeCuotas + ' cuotas</td><td class="tabla__detalle--vals">' + RECARGO_TRES_CUOTAS)
-                break
-            case 6:
-                document.write(datosNuevoPresupuesto.cantidadDeCuotas + ' cuotas</td><td class="tabla__detalle--vals">' + RECARGO_SEIS_CUOTAS)
-                break
-            case 12:
-                document.write(datosNuevoPresupuesto.cantidadDeCuotas + ' cuotas</td><td class="tabla__detalle--vals">' + RECARGO_DOCE_CUOTAS)
-                break
-        }
-    }
-    // FILA TOTALES Y CIERRE TABLA
-    document.write('</td></tr><tr class="tabla__detalle--titulos"><td colspan="3" class="tabla__detalle--total">TOTAL U$D</td><td class="tabla__detalle--vals">' + precioFinal + '</td></tr><tr class="tabla__detalle--titulos"><td colspan="3" class="tabla__detalle--total">TOTAL AR$</td><td class="tabla__detalle--vals">' + precioEnPesos + '</td></tr></tbody></table>')
-    //CIERRE DE COTIZADOR
-    document.write('<br><br><h2>Gracias por presupuestar su proyecto con nosotros. Nos comunicaremos con Usted a la brevedad para que podamos cerrar el trato y comenzar a trabajar.</h2>')
-}
-
-// EJECUCIÓN
-
-bienVenido = alert('¡Bienvenido a nuestro presupuestador en línea! A continuación le haremos algunas preguntas sobre su proyecto y las pautas de trabajo con las cuales realizaremos un presupuesto aproximado.')
-
-datosSolicitante()
-
-datosSitio()
-
-datosAdicionales()
-
-datosPautasTrabajo()
-
-calcularPresupuesto()
-
-mostrarPresupuesto()
