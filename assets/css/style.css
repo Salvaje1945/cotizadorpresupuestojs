@@ -167,29 +167,28 @@ h3 {
     border: 3px solid #000;
 }
 
-.cliente__existente {
+.cliente__datos {
     width: 100%;
     height: auto;
 }
 
-#cliente__datos--yaexiste,
-#cliente__datos--nuevo {
+#muestra__datos--cliente {
     display: none;
 }
 
-.cliente__existente p {
+.cliente__datos p {
     font-size: 18px;
     margin: 0 auto 25px;
     width: 75%;
 }
 
-.cliente__existente--datos {
+.lista__datos {
     width: 100%;
     margin: 25px 0;
     display: block;
 }
 
-.cliente__existente--datos ul {
+.lista__datos ul {
     list-style: none;
     background-color: #333;
     text-align: left;
@@ -197,7 +196,7 @@ h3 {
     margin: 0 auto;
 }
 
-.cliente__existente--datos ul li {
+.lista__datos ul li {
     display: block;
     color:#000;
     background-color:#ccc;
@@ -206,11 +205,11 @@ h3 {
     width: 100%;
 }
 
-.cliente__existente--datos ul li:nth-child(odd) {
+.lista__datos ul li:nth-child(odd) {
     background-color: #999;
 }
 
-.cliente__existente--confirm {
+.cliente__datos--accion {
     width: 100%;
     height: auto;
     display: block;
@@ -238,7 +237,12 @@ h3 {
     font-weight: 500;
 }
 
-.los__datos {
+#proyecto__datos--ok,
+#proyecto__datos--modif {
+    display: none;
+}
+
+/* .los__datos {
     width: 70%;
     margin: 0 auto;
     background-color: #333;
@@ -265,7 +269,7 @@ h3 {
 
 .mostrar__datos li:nth-child(odd) {
     background-color: #999;
-}
+} */
 
 .tabla__detalle{
     width: 90%;

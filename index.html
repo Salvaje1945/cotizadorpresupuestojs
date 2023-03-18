@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tercera pre-entrega curso Javascript</title>
+    <title>Primera pre-entrega curso Javascript</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -16,35 +16,23 @@
                 <h1>Presupuesto en línea por Nicolás Escribá para el curso de Javascript de Coder House.</h1>
             </div>
             <div class="contenedor__cuerpo--contenido">
-                <div class="cliente__existente" id="cliente__datos--yaexiste">
-                    <h2>Al parecer, Usted ya registra una sesión iniciada con los siguientes datos:</h2>
-                    <div class="cliente__existente--datos" id="cliente__exist--datos_lista"></div>
-                    <p>Si desea presupuestar un nuevo proyecto utilizando estos datos, presione "continuar", si desea modificar los datos o introducir datos nuevos para presupuestar un nuevo proyecto presione "modificar".</p>
-                    <div class="cliente__existente--confirm">
+                <div class="cliente__datos" id="muestra__datos--cliente">
+                    <h2 id="datos__cliente--titulo"></h2>
+                    <div class="lista__datos" id="cliente__datos--lista"></div>
+                    <p id="datos__cliente--parrafo"></p>
+                    <div class="cliente__datos--accion">
                         <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__existente--datos_confirm">CONTINUAR</div>
+                            <div class="cliente__confirm--btn" id="cliente__datos--ok">CONTINUAR</div>
+                            <div class="cliente__confirm--btn" id="proyecto__datos--ok">CONTINUAR</div>
                         </div>
                         <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__existente--datos_modif">MODIFICAR</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cliente__existente" id="cliente__datos--nuevo">
-                    <h2>Usted ha introducido los siguientes datos:</h2>
-                    <div class="cliente__existente--datos" id="cliente__nuevo--datos_lista"></div>
-                    <p>Si los datos son correctos presione "continuar", si desea modificar los datos presione "modificar".</p>
-                    <div class="cliente__existente--confirm">
-                        <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__nuevo--datos_confirm">CONTINUAR</div>
-                        </div>
-                        <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__nuevo--datos_modif">MODIFICAR</div>
+                            <div class="cliente__confirm--btn" id="cliente__datos--modif">MODIFICAR</div>
+                            <div class="cliente__confirm--btn" id="proyecto__datos--modif">MODIFICAR</div>
                         </div>
                     </div>
                 </div>
 
-                <form action="" id="form__presup--paso1">
+                <form id="form__presup--paso1">
                     <h2>Paso 1: introduzca sus datos.</h2>
                     <div class="form__grupo" id="nom">
                         <label for="nombre">Nombre</label>
@@ -125,11 +113,10 @@
                         <div>
                             <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
                         </div>
-                        <div class="form__grupo--error" id="error-macro">Por favor, complete todos los campos correctamente.</div>
                     </div>
                 </form>
 
-                <form action="" id="form__presup--paso2">
+                <form id="form__presup--paso2">
                     <h2>Paso 2: indique las especificaciones básicas de su proyecto.</h2>
 
                     <div class="form__grupo" id="proyectotipo">
@@ -203,7 +190,7 @@
 
                     <div class="form__grupo" id="btn-enviar">
                         <div>
-                            <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
+                            <button class="form__btn" type="submit" id="form__btn--enviar2">CONTINUAR</button>
                         </div>
                         <div class="form__grupo--error" id="error-macro">Por favor, complete todos los campos correctamente.</div>
                     </div>
@@ -233,7 +220,7 @@
 
                     <div class="form__grupo" id="btn-enviar">
                         <div>
-                            <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
+                            <button class="form__btn" type="submit" id="form__btn--enviar3">CONTINUAR</button>
                         </div>
                         <div class="form__grupo--error" id="error-macro">Por favor, complete todos los campos correctamente.</div>
                     </div>
