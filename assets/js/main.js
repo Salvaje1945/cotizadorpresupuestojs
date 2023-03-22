@@ -59,141 +59,91 @@ class Presupuesto {
 // *** Formularios ***
 
 const $formularioDatos = document.querySelector('#form__presup--paso1')
-
 const $formularioProyecto = document.querySelector('#form__presup--paso2')
-
 const $formularioPautas = document.querySelector('#form__presup--paso3')
-
 const $formularioAdicionales = document.querySelector('#form__presup--paso4')
 
 // *** Formularios: elementos ***
 // Formulario de datos:
 
 const $elNombre = document.querySelector('#nombre')
-
 const $errorNombre = document.querySelector('#error-nombre')
-
 const $laEmpresa = document.querySelector('#empresa')
-
 const $errorEmpresa = document.querySelector('#error-empresa')
-
 const $elPais = document.querySelector('#pais')
-
 const $errorPais = document.querySelector('#error-pais')
-
 const $paisOtroCont = document.querySelector('#pa2')
-
 const $paisOtro = document.querySelector('#pais-otro')
-
 const $errorPaisOtro = document.querySelector('#error-pais-otro')
-
 const $elCorreo = document.querySelector('#correo')
-
 const $errorCorreo = document.querySelector('#error-correo')
-
 const $elTelefono = document.querySelector('#telefono')
-
 const $errorTelefono = document.querySelector('#error-telefono')
 
 // Formulario de proyecto:
 
 const $tipoDeProyecto = document.querySelector('#protip')
-
 const $errorTipoDeProyecto = document.querySelector('#error-protip')
 
 // Tipo WEB:
 
 const $tipoWeb = document.querySelector('#elementos__web')
-
 const $tipoDisenio = document.querySelector('#dise')
-
 const $errorTipoDisenio = document.querySelector('#error-dise')
-
 const $disenioDistri = document.querySelector('#distri')
-
 const $errorDisenioDistri = document.querySelector('#error-distri')
-
 const $seccionesWebCont = document.querySelector('#seccionesweb')
-
 const $seccionesWeb = document.querySelector('#websecc')
-
 const $errorSeccionesWeb = document.querySelector('#error-websecc')
 
 // Tipo WORDPRESS
 
 const $tipoWp = document.querySelector('#elementos__wp')
-
 const $tipoPlantilla = document.querySelector('#planti')
-
 const $errorTipoPlantilla = document.querySelector('#error-planti')
-
 const $seccionesWp = document.querySelector('#wpsecc')
-
 const $errorSeccionesWp = document.querySelector('#error-wpsecc')
 
 // Formulario de pautas:
 
 const $plazoDeEntrega = document.querySelector('#plazo')
-
 const $errorPlazo = document.querySelector('#error-plazo')
-
 const $reunionesPresent = document.querySelector('#reuniones')
-
 const $errorReuniones = document.querySelector('#error-reuniones')
-
 const $reunionesCantCont = document.querySelector('#reuniones__num')
-
 const $reunionesCant = document.querySelector('#reuniones__cant')
-
 const $errorReunionesCant = document.querySelector('#error-reuniones__cant')
-
 const $pagosCant = document.querySelector('#pagos')
 
 // Formulario de adicionales:
 
 const $host = document.querySelector('#hosting')
-
 const $domi = document.querySelector('#dominio')
-
 const $mante = document.querySelector('#mantenimiento')
-
 const $lgo = document.querySelector('#logo')
 
 // *** Visualización y modificación de datos recolectados ***
 
 const $clienteDatos = document.querySelector('#muestra__datos--cliente')
-
 const $datosClienteTitulo = document.querySelector('#datos__cliente--titulo')
-
 const $datosClienteLista = document.querySelector('#cliente__datos--lista')
-
 const $datosClienteParrafo = document.querySelector('#datos__cliente--parrafo')
 
 // Modificación de datos: pseudo-botones
 
 const $confirmaDatosBtnOk = document.querySelector('#confirma__datos--ok')
-
 const $confirmaDatosBtnModif = document.querySelector('#confirma__datos--modif')
 
 // *** Visualización tabla de presupuesto ***
 
 const $presupuestoDatos = document.querySelector('#datos__presupuesto')
-
 const $contenedorTabla = document.querySelector('#tabla__presupuesto--cont')
-
 const $tablaPresup = document.querySelector('#tabla__presupuesto')
-
 const $tablaCabeza = document.querySelector('#tabla__cabecera')
-
 const $tablaFilaTotal = document.querySelector('#tabla__fila--total')
-
 const $tablaFilaTotalDt = document.querySelector('#tabla__total--dato')
-
 const $tablaFilaTotalP = document.querySelector('#tabla__fila--total_p')
-
 const $tablaFilaTotalPdt = document.querySelector('#tabla__totalP--dato')
-
-
 
 // CONSTANTES
 
@@ -226,27 +176,18 @@ const COTIZACION_DOLAR = 190
 // ARRAYS
 
 let datosCliente = []
-
 let datosProyecto = []
-
 let datosPautas = []
-
 let datosAdicionales = []
-
 let presupuestoFinal = []
-
 let presupTablaDetalle = []
-
 let presupTablaRecyDesc = []
 
 // VARIABLES
 
 let clienteExistente = false
-
 let moDif = false
-
 let numeroDePaso = 0
-
 
 // FUNCIONES
 
@@ -275,7 +216,6 @@ const yaExisteCliente = () => {
 const elementosFormPasoUno = () => {
     $clienteDatos.classList.remove('activo')
     $formularioDatos.classList.add('activo')
-
     const nombreMalFx = () => {
         $elNombre.onblur = function(){
             if ($elNombre.value === null || $elNombre.value === ''){
@@ -297,7 +237,6 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-
     const empresaMalFx = () => {
         $laEmpresa.onblur = function(){
             if ($laEmpresa.value === null || $laEmpresa.value === ''){
@@ -319,7 +258,6 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-
     const paisMalFx = () => {
         $elPais.onblur = function(){
             if ($elPais.value === null || $elPais.value === '' || $elPais.value === 'vacio'){
@@ -341,7 +279,6 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-
     const elOtroPaisMalFx = () => {
         $paisOtro.onblur = function(){
             if($paisOtro.value === null || $paisOtro.value === ''){
@@ -365,7 +302,6 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-
     const correoMalFx = () => {
         $elCorreo.onblur = function(){
             if ($elCorreo.value === null || $elCorreo.value === ''){
@@ -387,7 +323,6 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-
     const telefonoMalFx = () => {
         $elTelefono.onblur = function(){
             if ($elTelefono.value === null || $elTelefono.value === ''){
@@ -409,14 +344,12 @@ const elementosFormPasoUno = () => {
             }
         }
     }
-    
     const nombreMal = () => {
         if(moDif === true){
             $elNombre.value = ''
         }
         nombreMalFx()
     }
-
     const empresaMal = () => {
         if(moDif === true){
             $laEmpresa.value = ''
@@ -428,7 +361,6 @@ const elementosFormPasoUno = () => {
         nombreMalFx()
         empresaMalFx()
     }
-
     const paisMal = () => {
         if($laEmpresa.value === ''){
             $laEmpresa.classList.add('error')
@@ -437,7 +369,6 @@ const elementosFormPasoUno = () => {
         empresaMalFx()
         paisMalFx()
     }
-
     const paisNoEsta = () => {
         const elPaisNoEsta = $elPais.selectedIndex
         const escribaOtroPais = $elPais.options[elPaisNoEsta]
@@ -471,28 +402,19 @@ const elementosFormPasoUno = () => {
             elOtroPais()
         }
     }
-
     const elOtroPaEveClic = () => {
         if(moDif === true && $paisOtro.value != ''){
             $paisOtro.value = ''
         }
         elOtroPaisMalFx()  
     }
-    
     const elOtroPais = () => {
-
         if(moDif === true && $paisOtro.value != ''){
             $paisOtro.value = ''
         }
-
         paisMalFx()
-
         elOtroPaEveClic()
-
-
-
     }
-    
     const correoMal = () => {
         if($elPais.value === 'orto'){
             if($paisOtro.value === null || $paisOtro.value === ''){
@@ -529,14 +451,11 @@ const elementosFormPasoUno = () => {
                 } 
             }
         }
-
         if(moDif === true){
             document.getElementById('correo').value = ''
         }
-
         correoMalFx()
     }
-    
     const telefonoMal = () => {
         if(moDif === true){
             document.getElementById('telefono').value = ''
@@ -550,26 +469,17 @@ const elementosFormPasoUno = () => {
     }
 
     $elNombre.addEventListener('click', nombreMal)
-
     $laEmpresa.addEventListener('click', empresaMal)
-    
     $elPais.addEventListener('click', paisMal)
-
     $elPais.addEventListener('change', paisNoEsta)
-
     $paisOtro.addEventListener('click', elOtroPaEveClic)
-
-    //$paisOtro.addEventListener('click', elOtroPaEveClic)
-
     $elCorreo.addEventListener('click', correoMal)
-
     $elTelefono.addEventListener('click', telefonoMal)
 }
 
 const elementosFormPasoDos = () => {
     $clienteDatos.classList.remove('activo')
     $formularioProyecto.classList.add('activo')
-
     const tipoProyectoErrorFx = () => {
         $tipoDeProyecto.onblur = function(){
             if ($tipoDeProyecto.value === 'vacio'){
@@ -597,11 +507,9 @@ const elementosFormPasoDos = () => {
             }
         }
     }
-
     const tipoProyectoError = () => {
         tipoProyectoErrorFx()
     }
-    
     const tipoProyecto = () => {
         const elProyecto = $tipoDeProyecto.selectedIndex
         const proyectoEleccion = $tipoDeProyecto.options[elProyecto]
@@ -637,7 +545,6 @@ const elementosFormPasoDos = () => {
             }
         }
     }
-
     const tipoDisComprobClic = () => {
         $tipoDisenio.onblur = function(){
             if($tipoDisenio.value === 'vacio'){
@@ -666,7 +573,6 @@ const elementosFormPasoDos = () => {
             }
         }
     }
-
     const tipoDisComprobChang = () => {
         const elDisenio = $tipoDisenio.selectedIndex
         const disenioEleccion = $tipoDisenio.options[elDisenio]
@@ -685,9 +591,7 @@ const elementosFormPasoDos = () => {
                 $tipoDisenio.classList.add('bien')
             }
         }
-
     }
-
     const disenioDistriVacio = () => {
         if($disenioDistri.classList.contains('bien')){
             $disenioDistri.classList.remove('bien')
@@ -699,9 +603,7 @@ const elementosFormPasoDos = () => {
             $errorDisenioDistri.classList.remove('activo')
         }
     }
-
     const disDistriComprobClic = () => {
-        
         $disenioDistri.onblur = function(){
             if($disenioDistri.value === 'vacio'){
                 if($seccionesWebCont.classList.contains('activo')){
@@ -718,7 +620,6 @@ const elementosFormPasoDos = () => {
                     $seccionesWebCont.classList.replace('pasivo', 'activo')
                     seccWebComprobClic()
                 }
-
             }
         }
         $disenioDistri.onfocus = function(){
@@ -738,9 +639,7 @@ const elementosFormPasoDos = () => {
             }
         }
     }
-
     const disDistriComprobChang = () => {
-
         const laDistri = $disenioDistri.selectedIndex
         const distriEleccion = $disenioDistri.options[laDistri]
         if (distriEleccion.value != 'secciones') {
@@ -779,7 +678,6 @@ const elementosFormPasoDos = () => {
             $seccionesWebCont.classList.replace('pasivo', 'activo')
             seccWebComprobClic()
         }
-        
         $disenioDistri.onfocus = function(){
             if($disenioDistri.classList.contains('bien')){
                 $disenioDistri.classList.remove('bien')
@@ -791,9 +689,7 @@ const elementosFormPasoDos = () => {
                 $errorDisenioDistri.classList.remove('activo')
             }
         }
-
     }
-
     const seccWebComprobClic = () => {
         $seccionesWeb.onblur = function(){
             if($seccionesWeb.value === null || $seccionesWeb.value === '' || Number($seccionesWeb.value) === 0 || isNaN(Number($seccionesWeb.value))){
@@ -823,27 +719,18 @@ const elementosFormPasoDos = () => {
             }
         }
     }
-
     const tipoWeb = () => {
         if($tipoWp.classList.contains('activo')){
             $tipoWp.classList.replace('activo', 'pasivo')
         }
         $tipoWeb.classList.replace('pasivo', 'activo')
-
         tipoDisComprobClic()
-
         tipoDisComprobChang()
-
         disDistriComprobClic()
-
         disDistriComprobChang()
-
         seccWebComprobClic()
- 
     }
-
     const tipoPlantiComprobClic = () => {
-
         $tipoPlantilla.onblur = function(){
             if($tipoPlantilla.value === 'vacio'){
                 if($tipoPlantilla.classList.contains('bien')){
@@ -870,9 +757,7 @@ const elementosFormPasoDos = () => {
                 $errorTipoPlantilla.classList.remove('activo')
             }
         }
-
     }
-
     const tipoPlantiComprobChang = () => {
         const laPlanti = $tipoPlantilla.selectedIndex
         const plantiEleccion = $tipoPlantilla.options[laPlanti]
@@ -893,7 +778,6 @@ const elementosFormPasoDos = () => {
         }
 
     }
-
     const seccWpComprobClic = () => {
         $seccionesWp.onblur = function(){
             if($seccionesWp.value === null || $seccionesWp.value === '' || Number($seccionesWp.value) === 0 || isNaN(Number($seccionesWp.value))){
@@ -914,48 +798,32 @@ const elementosFormPasoDos = () => {
                 $errorSeccionesWp.classList.remove('activo')
             }
         }
-
     }
-    
     const tipoWp = () => {
         if($tipoWeb.classList.contains('activo')){
             $tipoWeb.classList.replace('activo', 'pasivo')
         }
         $tipoWp.classList.replace('pasivo', 'activo')
-
         tipoPlantiComprobClic()
-
         tipoPlantiComprobChang()
-        
-        seccWpComprobClic()
-        
+        seccWpComprobClic()        
     }
 
     $tipoDeProyecto.addEventListener('click', tipoProyectoError)
-
     $tipoDeProyecto.addEventListener('change', tipoProyecto)
-
     $tipoDisenio.addEventListener('click', tipoDisComprobClic)
-        
     $tipoDisenio.addEventListener('change', tipoDisComprobChang)
-
     $disenioDistri.addEventListener('click', disDistriComprobClic)
-
     $disenioDistri.addEventListener('change', disDistriComprobChang)
-
     $seccionesWeb.addEventListener('click', seccWebComprobClic)
-
     $tipoPlantilla.addEventListener('click', tipoPlantiComprobClic)
-
     $tipoPlantilla.addEventListener('change', tipoPlantiComprobChang)
-
     $seccionesWp.addEventListener('click', seccWpComprobClic)
 }
 
 const elementosFormPasoTres = () => {
     $clienteDatos.classList.remove('activo')
     $formularioPautas.classList.add('activo')
-
     const validarPlazoClic = () => {
         $plazoDeEntrega.onblur = function(){
             if ($plazoDeEntrega.value === 'vacio') {
@@ -981,7 +849,6 @@ const elementosFormPasoTres = () => {
             }
         }
     }
-
     const validarPlazoChang = () => {
         const plazoIndex = $plazoDeEntrega.selectedIndex
         const plazoOptions = $plazoDeEntrega.options[plazoIndex]
@@ -1009,7 +876,6 @@ const elementosFormPasoTres = () => {
             }
         }
     }
-
     const reunionesPresentClic = () => {
         $reunionesPresent.onblur = function(){
             if ($reunionesPresent.value === null || $reunionesPresent.value === '' || $reunionesPresent.value === 'vacio') {
@@ -1042,7 +908,6 @@ const elementosFormPasoTres = () => {
             }
         }
     }
-
     const reunionesPresentChang = () => {
         const lasReuni = $reunionesPresent.selectedIndex
         const reuniEleccion = $reunionesPresent.options[lasReuni]
@@ -1076,7 +941,6 @@ const elementosFormPasoTres = () => {
             cantReunComprobClic()
         }
     }
-
     const cantReunComprobClic = () => {
         $reunionesCant.onblur = function () {
             if ($reunionesCant.value === null || $reunionesCant.value === '' || Number($reunionesCant.value) === 0) {
@@ -1100,7 +964,6 @@ const elementosFormPasoTres = () => {
             }
         }
     }
-
     const validarPagos = () => {
         $pagosCant.onblur = function () {
             $pagosCant.classList.add('bien')
@@ -1111,28 +974,17 @@ const elementosFormPasoTres = () => {
     }    
 
     $plazoDeEntrega.addEventListener('click', validarPlazoClic)
-
     $plazoDeEntrega.addEventListener('change', validarPlazoChang)
-
-    //$reunionesPresent.addEventListener('click', reunionesPresentClic)
-
     $reunionesPresent.onclick = reunionesPresentClic
-
     $reunionesPresent.addEventListener('change', reunionesPresentChang)
-
     $reunionesCant.addEventListener('click', cantReunComprobClic)
-
     $pagosCant.addEventListener('click', validarPagos)
-
     $pagosCant.addEventListener('change', validarPagos)
-
 }
 
 const elementosFormPasoCuatro = () => {
-
     $clienteDatos.classList.remove('activo')
     $formularioAdicionales.classList.add('activo')
-    
 }
 
 // Funciones: CAPTURA DATOS DE FORMULARIOS
@@ -1145,12 +997,14 @@ const capturarDatosPasoUno = (evt) => {
     const otropais = $paisOtro.value
     const correo = $elCorreo.value
     const telefono = Number($elTelefono.value)
+
     let elPais = ''
     let nombreOk = false
     let empresaOk = false
     let paisOk = false
     let correoOk = false
     let telefonoOk = false
+
     if (nombre === null || nombre === ''){
         $elNombre.classList.add('error')
         $errorNombre.classList.add('activo')
@@ -1317,7 +1171,6 @@ const capturarDatosPasoDos = (evt) => {
             $tipoDisenio.classList.add('bien')
             disTipOk = true
         }
-
         if (disDistri === null || disDistri === '' || disDistri === 'vacio') {
             $errorDisenioDistri.classList.add('activo')
             $disenioDistri.classList.add('error')
@@ -1330,7 +1183,6 @@ const capturarDatosPasoDos = (evt) => {
             $disenioDistri.classList.add('bien')
             distriOk = true
         }
-
         if(disDistri === 'integrado'){
             webSecOk = true
             webSec = 0
@@ -1348,7 +1200,6 @@ const capturarDatosPasoDos = (evt) => {
                 webSecOk = true
             }
         }
-
         if(disTipOk === true && distriOk === true && webSecOk === true){
             const proyectoObj = {
                 proyectoT: tipoProy,
@@ -1365,7 +1216,6 @@ const capturarDatosPasoDos = (evt) => {
             return
         }
     } 
-
     if(tipoProy === 'wordpress') {
         if(tipoPlanti === null || tipoPlanti === '' || tipoPlanti === 'vacio'){
             $errorTipoPlantilla.classList.add('activo')
@@ -1379,7 +1229,6 @@ const capturarDatosPasoDos = (evt) => {
             $tipoPlantilla.classList.add('bien')
             planTipOk = true
         }
-
         if(wpSec === null || wpSec === '' || wpSec === 0){
             $errorSeccionesWp.classList.add('activo')
             $seccionesWp.classList.add('error')
@@ -1392,7 +1241,6 @@ const capturarDatosPasoDos = (evt) => {
             $seccionesWp.classList.add('bien')
             wpSecOk = true
         }
-
         if(planTipOk === true && wpSecOk === true){
             const proyectoObj = {
                 proyectoT: tipoProy,
@@ -1424,7 +1272,6 @@ const capturarDatosPasoTres = (evt) => {
     let conversionPlazo = ''
     let conversionPagos = ''
     
-
     if (entregaPlazo === null || entregaPlazo === '' || entregaPlazo === 'vacio') {
         $plazoDeEntrega.classList.add('error')
         $errorPlazo.classList.add('activo')
@@ -1454,7 +1301,6 @@ const capturarDatosPasoTres = (evt) => {
                 break
         }
     }
-
     if (reunPres === null || reunPres === '' || reunPres === 'vacio') {
         $reunionesPresent.classList.add('error')
         $errorReuniones.classList.add('activo')
@@ -1467,7 +1313,6 @@ const capturarDatosPasoTres = (evt) => {
         $reunionesPresent.classList.add('bien')
         reunPresOk = true
     }
-
     if(reunPres === 'no'){
         reuniCantOk = true
     } else {
@@ -1484,7 +1329,6 @@ const capturarDatosPasoTres = (evt) => {
             reuniCantOk = true
         }
     }
-
     switch (pagCant) {
         case 1:
             conversionPagos = 'Un solo pago (Incluye 5% desc.)'
@@ -1502,7 +1346,6 @@ const capturarDatosPasoTres = (evt) => {
             conversionPagos = 'Doce cuotas (Incluye recargos)'
             break
     }
-
     if(entPlzOk === true && reunPresOk === true && reuniCantOk === true){
         const pautasObj = {
             plazo: Number(entregaPlazo),
@@ -1527,14 +1370,12 @@ const capturarDatosPasoCuatro = (evt) => {
     const dominio = $domi.checked
     const mantenimiento = $mante.checked
     const logo = $lgo.checked
-    
     const adicionalesObj = {
         hosting: hosting,
         dominio: dominio,
         mantenimiento: mantenimiento,
         logo: logo
     }
-
     datosAdicionales.push(adicionalesObj)
     sessionStorage.setItem('Adicionales', JSON.stringify(datosAdicionales))
     crearAdicionales()
@@ -1572,7 +1413,6 @@ const muestraLosDatos = () => {
             $datosClienteLista.appendChild(listaDatos)
         }
     }
-    
 }
 
 const muestraLosDatosProyecto = () => {
@@ -1621,9 +1461,7 @@ const muestraLosDatosPautas = () => {
 }
 
 function mostrarPresupuesto() {
-
     $presupuestoDatos.classList.add('activo')
-
     for (const filaDato of presupTablaDetalle) {
         laFila = document.createElement('tr')
         laFila.innerHTML = `<td class="tabla__detalle--cant">${filaDato.cantidad}</td>
@@ -1631,15 +1469,12 @@ function mostrarPresupuesto() {
                                 <td class="tabla__detalle--vals">${filaDato.unitario}</td>
                                 <td class="tabla__detalle--vals">${filaDato.total}</td>`
         $tablaPresup.appendChild(laFila)
-        //$tablaPresup.insertBefore(laFila, $tablaFilaTotal)
     }
-
     let filaSubT = document.createElement('tr')
     filaSubT.classList.add('tabla__detalle--titulos')
     filaSubT.innerHTML = `<td colspan="3" class="tabla__detalle--total">SUB-TOTAL U$D</td>
                         <td class="tabla__detalle--vals" id="tabla__subtotal--fila_dato">${presupuestoNuevo.precioProvisorio}</td>`
     $tablaPresup.appendChild(filaSubT)
-
    if(presupTablaRecyDesc.length > 0){
         for (const celda of presupTablaRecyDesc) {
             laFilaDesc = document.createElement('tr')
@@ -1648,19 +1483,16 @@ function mostrarPresupuesto() {
             $tablaPresup.appendChild(laFilaDesc)
         }
     }
-
     let filaTotal = document.createElement('tr')
     filaTotal.classList.add('tabla__detalle--titulos')
     filaTotal.innerHTML = `<td colspan="3" class="tabla__detalle--total">TOTAL U$D</td>
                             <td class="tabla__detalle--vals">${presupuestoNuevo.precioFinal}</td>`
     $tablaPresup.appendChild(filaTotal)
-
     let filaTotalP = document.createElement('tr')
     filaTotalP.classList.add('tabla__detalle--titulos')
     filaTotalP.innerHTML = `<td colspan="3" class="tabla__detalle--total">TOTAL AR$</td>
                             <td class="tabla__detalle--vals">${presupuestoNuevo.precioPesos}</td>`
     $tablaPresup.appendChild(filaTotalP)
-
 }
 
 // Funciones: CONFIRMAR DATOS
@@ -1696,19 +1528,15 @@ const confirmarPautas = () => {
 
 const confirmarDatos = () => {
     $clienteDatos.classList.add('activo')
-
     if(numeroDePaso === 1){
         confirmarCliente()
     }
-
     if(numeroDePaso === 2){
         confirmarProyecto()
     }
-
     if(numeroDePaso === 3) {
         confirmarPautas()
     }
-    
 }
 
 // Funciones: RESETEO DE FORMULARIOS
@@ -1724,7 +1552,6 @@ const reseteoFormPasoUno = () => {
     $paisOtro.classList.remove('bien')
     $elCorreo.classList.remove('bien')
     $elTelefono.classList.remove('bien')
-    
     vengaElPasoUno()
 }
 
@@ -1823,16 +1650,13 @@ const crearAdicionales = () => {
         sessionStorage.removeItem('Adicionales')
         console.log(adicionalesNuevo)
         console.log('Finaliza la recolección de datos; ahora... ¡A calcular!')
-        calcularPresupuesto()
-
-        
+        calcularPresupuesto()    
     } else {
         console.log('algo está fallando 4')
     }
 }
 
 const crearPresupuesto = () => {
-    //$clienteDatos.classList.remove('activo')
     if(presupuestoFinal.length > 0){
         for (const datoPf of presupuestoFinal){
             presupuestoNuevo = new Presupuesto(datoPf.id, datoPf.idc, datoPf.seccionesXtra, datoPf.adicionalSecciones, datoPf.visitas, datoPf.recargoVisitas, datoPf.precioProv, datoPf.descuento, datoPf.precioFinal, datoPf.precioPesos)
@@ -1847,20 +1671,14 @@ const crearPresupuesto = () => {
 
 function calcularPresupuesto() {
 
-    
-
     let proyectoDatosCalculo = []
     proyectoDatosCalculo.push(proyectoNuevo)
-
     let pautasDatosCalculo = []
     pautasDatosCalculo.push(pautasNuevo)
-
     let adicionalesDatosCalculo = []
     adicionalesDatosCalculo.push(adicionalesNuevo)
 
     const datosParaCalculo = proyectoDatosCalculo.concat(pautasDatosCalculo).concat(adicionalesDatosCalculo)
-
-    
 
     let precioBase
     let descripBase
@@ -1909,7 +1727,6 @@ function calcularPresupuesto() {
 
     // CÁLCULO PRECIO POR TIPO DE PROYECTO
     
-
     if (datosParaCalculo[0].proyectoTipo === 'wordpress') {
         if (datosParaCalculo[0].plantillaTipo === 'profesional') {
             precioXplantilla = EXTRA_PLANTILLA_PROF
@@ -1923,8 +1740,6 @@ function calcularPresupuesto() {
 
     // CÁLCULO PRECIO POR SECCIONES
 
-    
-
     if (datosParaCalculo[0].numeroSecciones <= MAXIMO_SECCIONES_INC) {
         adicionalXsecciones = 0
         seccionesExtra = 'no'
@@ -1934,8 +1749,6 @@ function calcularPresupuesto() {
     }
 
     // CÁLCULO PRECIO POR SERVICIOS ADICIONALES
-
-    
 
     if (datosParaCalculo[2].hosting === true) {
         addHosting = HOSTING_ANUAL
@@ -1964,7 +1777,6 @@ function calcularPresupuesto() {
         addLogo = 0
     }
     if (datosParaCalculo[1].plazoEntrega === 21){
-
         addRecXmasMes = PRECIO_PLAZO_MASMES
     } else {
         addRecXmasMes = 0
@@ -1973,8 +1785,6 @@ function calcularPresupuesto() {
     
     // CÁLCULO PRECIO POR REUNIONES PRESENCIALES
 
-    
-
     if (datosParaCalculo[1].presenciales === 'no') {
         precioXvisitas = 0
     } else {
@@ -1982,131 +1792,102 @@ function calcularPresupuesto() {
     }
 
     // CREACIÓN DE ARRAY PARA FILAS DE TABLA
-    
-    let proyectoDesc
 
+    let proyectoDesc
     if(datosParaCalculo[0].proyectoTipo === 'wordpress'){
         proyectoDesc = 'Sitio Web en base a Wordpress'
     }
-
     if(datosParaCalculo[0].proyectoTipo === 'web'){
         if (datosParaCalculo[0].disenioTipo === 'framework') {
             proyectoDesc = 'Sitio Web tradicional maquetado con framework'
         } else {
             proyectoDesc = 'Sitio Web tradicional hecho a medida'
         }
-        
     }
-
     const filaProy = {
         cantidad: 1,
         descripcion: proyectoDesc,
         unitario: '-',
         total: '-'
     }
-
     presupTablaDetalle.push(filaProy)
-
     if(datosParaCalculo[0].proyectoTipo === 'wordpress'){
-        
         const filaAdWp = {
             cantidad: 1,
             descripcion: 'Adicional por instalación y gestión de plantilla en WP',
             unitario: EXTRA_WORDPRESS,
             total: EXTRA_WORDPRESS
         }
-
         presupTablaDetalle.push(filaAdWp)
-
         if (datosParaCalculo[0].plantillaTipo === 'profesional') {
-
             const filaPlantiProf = {
                 cantidad: 1,
                 descripcion: 'Adicional por plantilla de pago (precio de plantilla + instalación)',
                 unitario: EXTRA_PLANTILLA_PROF,
                 total: EXTRA_PLANTILLA_PROF
             }
-
             presupTablaDetalle.push(filaPlantiProf)
         }
     }
-
     const filaPrecioBase = {
         cantidad: 1,
         descripcion: descripBase,
         unitario: precioBase,
         total: precioBase
     }
-
     presupTablaDetalle.push(filaPrecioBase)
-
     if (datosParaCalculo[1].plazoEntrega === 21){
-
         const filaAdPlzXtra = {
             cantidad: 1,
             descripcion: 'Importe por exceso de plazo',
             unitario: PRECIO_PLAZO_MASMES,
             total: PRECIO_PLAZO_MASMES
-        }
-        
+        }    
         presupTablaDetalle.push(filaAdPlzXtra)
     }
-
     if (datosParaCalculo[0].numeroSecciones > MAXIMO_SECCIONES_INC) {
-
         const filaSecInc = {
             cantidad: 5,
             descripcion: 'Secciones incluidas en el sitio (hasta 5 sin costo extra)',
             unitario: '-',
             total: '-'
         }
-        
         presupTablaDetalle.push(filaSecInc)
-
         const filaSecXtra = {
             cantidad: seccionesExtra,
             descripcion: 'Adicional por secciones extra',
             unitario: RECARGO_SECCIONES_PAG,
             total: adicionalXsecciones
         }
-        
         presupTablaDetalle.push(filaSecXtra)
-
     }
-
     if (datosParaCalculo[2].hosting === true) {
         const filaHost = {
             cantidad: 12,
             descripcion: hostingDesc,
             unitario: hostingUnit,
             total: HOSTING_ANUAL
-        }
-        
+        }   
         presupTablaDetalle.push(filaHost)
     }
-
     if (datosParaCalculo[2].dominio === true) {
         const filaDominio = {
             cantidad: 1,
             descripcion: dominioDesc,
             unitario: DOMINIO_ANUAL,
             total: DOMINIO_ANUAL
-        }
-        
+        }   
         presupTablaDetalle.push(filaDominio)
     }
-
     if (datosParaCalculo[2].mantenimiento === true) {
         const filaMante = {
             cantidad: 12,
             descripcion: manteDesc,
             unitario: manteUnit,
             total: MANTENIMIENTO_ANUAL
-        }
-        
+        }   
         presupTablaDetalle.push(filaMante)
     }
-
     if (datosParaCalculo[2].logo === true) {
         const filaLogo = {
             cantidad: 1,
@@ -2114,42 +1895,30 @@ function calcularPresupuesto() {
             unitario: EXTRA_LOGO,
             total: EXTRA_LOGO
         }
-        
         presupTablaDetalle.push(filaLogo)
     }
-
     if (datosParaCalculo[1].presenciales === 'si') {
-        
-        
-
         const filaVisit = {
             cantidad: datosParaCalculo[1].cantidadPresenciales,
             descripcion: 'Recargo por reuniones presenciales',
             unitario: RECARGO_PRESENCIAL,
             total: precioXvisitas
-        }
-        
+        }    
         presupTablaDetalle.push(filaVisit)
     }
 
-
-
-
-
     // CÁLCULO DEL PRECIO FINAL
+
     let precioProvisorio = precioXplazoYtipo + adicionalXsecciones + adicionales + precioXvisitas
     let precioProvConDesc
     if (datosParaCalculo[0].disenioTipo === 'framework') {
         precioProvConDesc = precioProvisorio - DESC_FRAMEWORK
-
         const filaDescFw = {
             tipo: 'Descuento',
             descripcion: 'Descuento por maquetación con framework',
             monto: '-' + DESC_FRAMEWORK
         }
-
         presupTablaRecyDesc.push(filaDescFw)
-
     } else {
         precioProvConDesc = precioProvisorio
     }
@@ -2159,16 +1928,12 @@ function calcularPresupuesto() {
     if (datosParaCalculo[1].pagos === 1) {
         descuento = Number(((precioProvConDesc * DESCUENTO_UN_PAGO) / 100).toFixed(2))
         precioFinal = Number((precioProvConDesc - descuento).toFixed(2))
-
         const filaDescUnP = {
             tipo: 'Descuento',
             descripcion: 'Descuento por abonar en un pago',
             monto: '-' + descuento
         }
-
         presupTablaRecyDesc.push(filaDescUnP)
-
-
     } else {
         switch (datosParaCalculo[1].pagos) {
             case 2:
@@ -2188,17 +1953,14 @@ function calcularPresupuesto() {
                 reCarg = RECARGO_DOCE_CUOTAS
                 break
         }
-
         const filaRecXcuot = {
             tipo: 'Recargo',
             descripcion: 'Recargo por pago en' + datosParaCalculo[1].pagos + 'cuotas',
             monto: reCarg
         }
-
         presupTablaRecyDesc.push(filaRecXcuot)
     }
     let precioEnPesos = Number((precioFinal * COTIZACION_DOLAR).toFixed(2))
-
     const presupuestoObj = {
         id: Date.now(),
         idc: clienteNuevo.id,
@@ -2213,43 +1975,28 @@ function calcularPresupuesto() {
     }
     presupuestoFinal.push(presupuestoObj)
     sessionStorage.setItem('Presupuesto', JSON.stringify(presupuestoFinal))
-
     crearPresupuesto()
-
 }
 
 // EJECUCIÓN 
-
 // Ejecución: FORMULARIOS
 
 const vengaElPasoUno = () => {
-    
     elementosFormPasoUno()
-    
     $formularioDatos.addEventListener('submit', capturarDatosPasoUno)
-
 }
 
 const vengaElPasoDos = () => {
-    
     elementosFormPasoDos()
-    
     $formularioProyecto.addEventListener('submit', capturarDatosPasoDos)
-
 }
 
 const vengaElPasoTres = () => {
-    
     elementosFormPasoTres()
-    
     $formularioPautas.addEventListener('submit', capturarDatosPasoTres)
-
 }
 
 const vengaElPasoCuatro = () => {
-
     elementosFormPasoCuatro()
-
     $formularioAdicionales.addEventListener('submit', capturarDatosPasoCuatro)
 }
-
