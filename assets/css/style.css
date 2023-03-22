@@ -68,63 +68,56 @@ h3 {
     display: block;
 }*/
 
-#form__presup--paso1,
+/*#form__presup--paso1,
 #form__presup--paso2,
 #form__presup--paso3,
 #form__presup--paso4 {
     display: none;
+}*/
+
+.formulario {
+    width: 70%;
+    margin: 0 auto;
+    display: none;
 }
 
-.form__grupo {
-    margin: 0 0 15px;
+.formulario.activo {
+    display: block;
+}
+
+.formulario label{
+    display: inline-block;
+    width: 75%;
+}
+
+.form__grupo,
+.form__grupo--tipo {
+    margin: 0 auto 15px;
+    height: auto;
+    width: 100%;
+}
+
+
+.form__grupo.pasivo,
+.form__grupo--tipo.pasivo {
+    height: 0px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.form__grupo.activo {
     height: 67px;
 }
 
-.form__grupo--tipo {
-    display: block;
-    height: auto;
-    transition: .5s ease all;
-}
-
-#elementos__web {
-    height: 0px;
-}
-
-#elementos__wp {
-    height: 0px;
-}
-
-#elementos__web,
-#elementos__wp {
-    overflow: hidden;
-}
-
-
-#adds {
-    margin: 15px 0;
-}
-
-#nom,
-#emp,
-#pa,
-#mail,
-#tel {
-    transition: .5s ease all;
-}
-
-#pa2,
-#seccionesweb {
-    margin: 0;
-    height: 0px;
-    transition: .5s ease all;
-    overflow: hidden;
+.form__grupo--tipo.activo {
+    height: 350px;
 }
 
 .form__grupo--elemento {
     margin: 7px 0 0;
     height: 35px;
+    width: 75%;
     line-height: 35px;
-    width: 70%;
     border-radius: 3px;
     border: 3px solid transparent;
     transition: .3s ease all;
@@ -138,10 +131,18 @@ h3 {
     outline: none;
 }
 
+.form__grupo--elemento.error{
+    border: 3px solid red;
+}
+
+.form__grupo--elemento.bien{
+    border: 3px solid green;
+}
+
 .form__grupo--error {
     background-color: red;
-    width: 71.5%;
     height: 0px;
+    width: 75%;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -149,6 +150,48 @@ h3 {
     overflow: hidden;
     margin: 0 auto;
 }
+
+.form__grupo--error.activo {
+    height: 35px;
+}
+
+
+
+/*#elementos__web {
+    height: 0px;
+}
+
+#elementos__wp {
+    height: 0px;
+}
+
+#elementos__web,
+#elementos__wp {
+    overflow: hidden;
+}*/
+
+
+#adds {
+    margin: 15px 0;
+}
+
+/*#nom,
+#emp,
+#pa,
+#mail,
+#tel {
+    transition: .5s ease all;
+}
+
+#seccionesweb,
+#reuniones__num {
+    margin: 0;
+    height: 0px;
+    transition: .5s ease all;
+    overflow: hidden;
+}*/
+
+
 
 .form__btn {
     width: 35%;
@@ -170,10 +213,11 @@ h3 {
 .cliente__datos {
     width: 100%;
     height: auto;
+    display: none;
 }
 
-#muestra__datos--cliente {
-    display: none;
+.cliente__datos.activo {
+    display: block;
 }
 
 .cliente__datos p {
@@ -237,43 +281,25 @@ h3 {
     font-weight: 500;
 }
 
-#proyecto__datos--ok,
-#proyecto__datos--modif {
+.presupuesto__datos {
+    width: 100%;
+    height: auto;
     display: none;
+    margin: 25px 0;
 }
 
-/* .los__datos {
-    width: 70%;
+.presupuesto__datos.activo {
+    display: block;
+}
+
+.presupuesto__datos--tabla {
+    width: 75%;
+    height: auto;
     margin: 0 auto;
-    background-color: #333;
-    height: 0px;
-    overflow: hidden;
-    transition: .5s ease all;
 }
-
-.los__datos h3 {
-    display: block;
-    color: #ccc;
-}
-
-.mostrar__datos ul {
-    list-style: none;
-}
-
-.mostrar__datos li {
-    display: block;
-    color: #000;
-    background-color: #ccc;
-    font-size: 16px;
-}
-
-.mostrar__datos li:nth-child(odd) {
-    background-color: #999;
-} */
 
 .tabla__detalle{
-    width: 90%;
-    margin: 25px auto;
+    width: 100%;
     background-color: #fff;
     font-size: 14px;
     border-collapse: collapse;
@@ -294,8 +320,6 @@ h3 {
     font-weight: 600;
 }
 
-
-
 .tabla__detalle--cant {
     width: 6%;
 }
@@ -314,11 +338,15 @@ h3 {
     padding-right: 10px;
 }
 
+.tabla__detalles--recydesc {
+    display: none;
+}
+
 /* .tabla__detalle--celdano {
     
 } */
 
-@media only screen and (min-width: 768px){
+/*@media only screen and (min-width: 768px){
     .tabla__detalle{
         width: 75%;
     }
@@ -328,4 +356,4 @@ h3 {
     .tabla__detalle{
         width: 60%;
     }
-}
+}*/

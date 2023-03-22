@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    
+
 
     <div id="contenedor">
         <div class="contenedor__cuerpo">
@@ -16,23 +16,111 @@
                 <h1>Presupuesto en línea por Nicolás Escribá para el curso de Javascript de Coder House.</h1>
             </div>
             <div class="contenedor__cuerpo--contenido">
+                <div class="presupuesto__datos" id="datos__presupuesto">
+                    <div class="presupuesto__datos--tabla" id="tabla__presupuesto--cont">
+                        <table class="tabla__detalle" id="tabla__presupuesto">
+                            <tr class="tabla__detalle--titulos" id="tabla__cabecera">
+                                <td class="tabla__detalle--cant">Cant.</td>
+                                <td class="tabla__detalle--desc">Descripción</td>
+                                <td class="tabla__detalle--vals">Unitario</td>
+                                <td class="tabla__detalle--vals">Total</td>
+                            </tr>
+                            <!-- <tr>
+                                <td class="tabla__detalle--cant">1</td>
+                                <td class="tabla__detalle--desc">Sitio Web tradicional (Tipo de diseño: a medida)</td>
+                                <td class="tabla__detalle--vals">-</td>
+                                <td class="tabla__detalle--vals">-</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">1</td>
+                                <td class="tabla__detalle--desc">Precio base según plazo: 1 mes (20 días hábiles)</td>
+                                <td class="tabla__detalle--vals">350</td>
+                                <td class="tabla__detalle--vals">350</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">15</td>
+                                <td class="tabla__detalle--desc">Importe por días excedentes al plazo básico</td>
+                                <td class="tabla__detalle--vals">108</td>
+                                <td class="tabla__detalle--vals">1620</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">5</td>
+                                <td class="tabla__detalle--desc">Secciones incluidas en el sitio (hasta 5 sin costo extra)</td>
+                                <td class="tabla__detalle--vals">-</td>
+                                <td class="tabla__detalle--vals">-</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">2</td>
+                                <td class="tabla__detalle--desc">Adicional por secciones extra</td>
+                                <td class="tabla__detalle--vals">30</td>
+                                <td class="tabla__detalle--vals">60</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">12</td>
+                                <td class="tabla__detalle--desc">Servicio de Web Hosting*</td>
+                                <td class="tabla__detalle--vals">3</td>
+                                <td class="tabla__detalle--vals">36</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">1</td>
+                                <td class="tabla__detalle--desc">Servicio registro de dominio*</td>
+                                <td class="tabla__detalle--vals">15</td>
+                                <td class="tabla__detalle--vals">15</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">1</td>
+                                <td class="tabla__detalle--desc">Diseño de logo</td>
+                                <td class="tabla__detalle--vals">75</td>
+                                <td class="tabla__detalle--vals">75</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">12</td>
+                                <td class="tabla__detalle--desc">Servicio de Mantenimiento Web*</td>
+                                <td class="tabla__detalle--vals">12.5</td>
+                                <td class="tabla__detalle--vals">150</td>
+                            </tr>
+                            <tr>
+                                <td class="tabla__detalle--cant">4</td>
+                                <td class="tabla__detalle--desc">Recargo por reuniones presenciales</td>
+                                <td class="tabla__detalle--vals">75</td>
+                                <td class="tabla__detalle--vals">300</td>
+                            </tr> -->
+                            <!-- <tr class="tabla__detalle--titulos" id="tabla__subtotal--fila">
+                                <td colspan="3" class="tabla__detalle--total">SUB-TOTAL U$D</td>
+                                <td class="tabla__detalle--vals" id="tabla__subtotal--fila_dato">2606</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="tabla__detalle--total">Recargo por pago en 2 cuotas</td>
+                                <td class="tabla__detalle--vals">50</td>
+                            </tr> -->
+                            <!-- <tr class="tabla__detalle--titulos" id="tabla__fila--total">
+                                <td colspan="3" class="tabla__detalle--total">TOTAL U$D</td>
+                                <td class="tabla__detalle--vals" id="tabla__total--dato"></td>
+                            </tr> -->
+                            <!-- <tr class="tabla__detalle--titulos" id="tabla__fila--total_p">
+                                <td colspan="3" class="tabla__detalle--total">TOTAL AR$</td>
+                                <td class="tabla__detalle--vals" id="tabla__totalP--dato"></td>
+                            </tr> -->
+                        </table>
+                    </div>
+                </div>
+
+
                 <div class="cliente__datos" id="muestra__datos--cliente">
                     <h2 id="datos__cliente--titulo"></h2>
                     <div class="lista__datos" id="cliente__datos--lista"></div>
                     <p id="datos__cliente--parrafo"></p>
                     <div class="cliente__datos--accion">
                         <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__datos--ok">CONTINUAR</div>
-                            <div class="cliente__confirm--btn" id="proyecto__datos--ok">CONTINUAR</div>
+                            <div class="cliente__confirm--btn" id="confirma__datos--ok">CONTINUAR</div>
                         </div>
                         <div class="cliente__confirm--btnbox">
-                            <div class="cliente__confirm--btn" id="cliente__datos--modif">MODIFICAR</div>
-                            <div class="cliente__confirm--btn" id="proyecto__datos--modif">MODIFICAR</div>
+                            <div class="cliente__confirm--btn" id="confirma__datos--modif">MODIFICAR</div>
                         </div>
                     </div>
                 </div>
 
-                <form id="form__presup--paso1">
+                <form class="formulario" id="form__presup--paso1">
                     <h2>Paso 1: introduzca sus datos.</h2>
                     <div class="form__grupo" id="nom">
                         <label for="nombre">Nombre</label>
@@ -88,7 +176,7 @@
                         </div>
                         <div class="form__grupo--error" id="error-pais">Error: debe escoger un país de residencia.</div>
                     </div>
-                    <div class="form__grupo" id="pa2">
+                    <div class="form__grupo pasivo" id="pa2">
                         <label for="pais-otro">Escriba el nombre de su país</label>
                         <div>
                             <input class="form__grupo--elemento" type="text" name="pais-otro" id="pais-otro" placeholder="Escriba el nombre de su pais">
@@ -116,8 +204,8 @@
                     </div>
                 </form>
 
-                <form id="form__presup--paso2">
-                    <h2>Paso 2: indique las especificaciones básicas de su proyecto.</h2>
+                <form class="formulario" id="form__presup--paso2">
+                    <h2>Paso 2: indique las especificaciones técnicas básicas de su proyecto.</h2>
 
                     <div class="form__grupo" id="proyectotipo">
                         <label for="protip">Elija el tipo de proyecto que desea presupuestar</label>
@@ -131,7 +219,7 @@
                         <div class="form__grupo--error" id="error-protip">Error: debe escoger un tipo de proyecto.</div>
                     </div>
 
-                    <div class="form__grupo--tipo" id="elementos__web">
+                    <div class="form__grupo--tipo pasivo" id="elementos__web">
                         <div class="form__grupo" id="disenio">
                             <label for="dise">Elija el tipo de diseño que desea para su Sitio Web</label>
                             <div>
@@ -143,7 +231,7 @@
                             </div>
                             <div class="form__grupo--error" id="error-dise">Error: debe escoger un tipo de diseño.</div>
                         </div>
-    
+
                         <div class="form__grupo" id="distribucion">
                             <label for="distri">Elija la forma en que se dividirá y distribuirá el contenido</label>
                             <div>
@@ -155,8 +243,8 @@
                             </div>
                             <div class="form__grupo--error" id="error-distri">Error: debe escoger una forma de distribución del contenido.</div>
                         </div>
-    
-                        <div class="form__grupo" id="seccionesweb">
+
+                        <div class="form__grupo pasivo" id="seccionesweb">
                             <label for="websecc">Indique la cantidad de secciones que tendrá su Sitio Web</label>
                             <div>
                                 <input class="form__grupo--elemento" type="number" name="websecc" id="websecc">
@@ -164,9 +252,17 @@
                             <div class="form__grupo--error" id="error-websecc">Error: debe indicar la cantidad de secciones que desea.</div>
                         </div>
 
+                        <div class="form__grupo" id="btn-enviar">
+                            <!-- <div>
+                                <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
+                            </div> -->
+                            <div>
+                                <button class="form__btn" type="submit">CONTINUAR</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form__grupo--tipo" id="elementos__wp">
+                    <div class="form__grupo--tipo pasivo" id="elementos__wp">
                         <div class="form__grupo" id="plantilla">
                             <label for="planti">Elija el tipo de plantilla que desea para su Sitio Web</label>
                             <div>
@@ -178,7 +274,7 @@
                             </div>
                             <div class="form__grupo--error" id="error-planti">Error: debe escoger un tipo de plantilla.</div>
                         </div>
-    
+
                         <div class="form__grupo" id="seccioneswp">
                             <label for="wpsecc">Indique la cantidad de secciones que tendrá su Sitio</label>
                             <div>
@@ -186,20 +282,85 @@
                             </div>
                             <div class="form__grupo--error" id="error-wpsecc">Error: debe indicar la cantidad de secciones que desea.</div>
                         </div>
+
+                        <div class="form__grupo" id="btn-enviar">
+                            <!-- <div>
+                                <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
+                            </div> -->
+                            <div>
+                                <button class="form__btn" type="submit">CONTINUAR</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form__grupo" id="btn-enviar">
+                        <div>
+                            <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
+                        </div>
+                    </div> -->
+                </form>
+
+                <form class="formulario" id="form__presup--paso3">
+                    <h2>Paso 3: pautas de trabajo básicas y forma de pago.</h2>
+                    <div class="form__grupo" id="plazoparaentrega">
+                        <label for="plazo">Indique el plazo máximo para la entrega de su proyecto finalizado.</label>
+                        <div>
+                            <select class="form__grupo--elemento" name="plazo" id="plazo">
+                                <option value="vacio" selected>Por favor indique el plazo de entrega</option>
+                                <option value="5">Una semana (5 días hábiles)</option>
+                                <option value="10">Dos semanas (10 días hábiles)</option>
+                                <option value="15">Tres semanas (15 días hábiles)</option>
+                                <option value="20">Un mes (20 días hábiles)</option>
+                                <option value="21">Más de un mes</option>
+                            </select>
+                        </div>
+                        <div class="form__grupo--error" id="error-plazo">Error: debe indicar un plazo máximo estimado.</div>
+                    </div>
+
+                    <div class="form__grupo" id="lasreuniones">
+                        <label for="reuniones">Indique si necesitará, o no, tener reuniones presenciales con nuestro equipo de trabajo.</label>
+                        <div>
+                            <select class="form__grupo--elemento" name="reuniones" id="reuniones">
+                                    <option value="vacio" selected>Por favor indique si necesita o no reuniones presenciales</option>
+                                    <option value="no">No</option>
+                                    <option value="si">Si</option>
+                            </select>
+                        </div>
+                        <div class="form__grupo--error" id="error-reuniones">Error: deve escoger una de las dos opciones.</div>
+                    </div>
+
+                    <div class="form__grupo pasivo" id="reuniones__num">
+                        <label for="reuniones__cant">Indique la cantidad de la cantidad de reuniones presenciales que desea.</label>
+                        <div>
+                            <input class="form__grupo--elemento" type="number" name="reuniones__cant" id="reuniones__cant">
+                        </div>
+                        <div class="form__grupo--error" id="error-reuniones__cant">Error: debe indicar la cantidad de reuniones presenciales que desea.</div>
+                    </div>
+
+                    <div class="form__grupo" id="forma__pago">
+                        <label for="pagos">Indique la cantidad de pagos en la que desea abonar por nuestros servicios. Tenga en cuenta que existen recargos fijos por cantidad de cuotas mientras que, abonando en un solo pago, obtiene un descuento del 5%.</label>
+                        <div>
+                            <select class="form__grupo--elemento" name="pagos" id="pagos">
+                                <option value="1" selected>Un pago</option>
+                                <option value="2">Dos cuotas</option>
+                                <option value="3">Tres cuotas</option>
+                                <option value="6">Seis cuotas</option>
+                                <option value="12">Doce cuotas</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form__grupo" id="btn-enviar">
                         <div>
-                            <button class="form__btn" type="submit" id="form__btn--enviar2">CONTINUAR</button>
+                            <button class="form__btn" type="submit" id="form__btn--enviar">CONTINUAR</button>
                         </div>
-                        <div class="form__grupo--error" id="error-macro">Por favor, complete todos los campos correctamente.</div>
                     </div>
                 </form>
 
-                <form action="" id="form__presup--paso3">
-                    <h2>Paso 3: Seleccione los servicios adicionales que desea contratar. Si no desea contratar ninguno, deje las casillas sin tildar y haga clic en "Continuar".</h2>
+                <form class="formulario" id="form__presup--paso4">
+                    <h2>Paso 4: Seleccione los servicios adicionales que desea contratar. Si no desea contratar ninguno, deje las casillas sin tildar y haga clic en "Continuar".</h2>
 
-                    <div class="form__grupo--tipo" id="adds">
+                    <div class="form__grupo" id="adds">
                         <label for="hosting">Servicio de web hosting:</label>
                         <div>
                             <input type="checkbox" name="hosting" id="hosting">
@@ -220,21 +381,20 @@
 
                     <div class="form__grupo" id="btn-enviar">
                         <div>
-                            <button class="form__btn" type="submit" id="form__btn--enviar3">CONTINUAR</button>
+                            <button class="form__btn" type="submit" id="form__btn--enviar">FINALIZAR</button>
                         </div>
-                        <div class="form__grupo--error" id="error-macro">Por favor, complete todos los campos correctamente.</div>
                     </div>
                 </form>
 
             </div>
 
             <div class="contenedor__cuerpo--pie"></div>
-            
+
 
         </div>
 
     </div>
-    
+
     <script src="assets/js/main.js"></script>
 </body>
 </html>
